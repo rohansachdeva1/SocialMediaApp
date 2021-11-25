@@ -45,7 +45,7 @@ At the end of the program, when the user selects the Quit option, the data shoul
 ## Useful Links
 [America's Most Innovative Tech Leaders](https://www.forbes.com/lists/innovative-leaders/#4c83800e26aa)
 
-[Google Drive](https://docs.google.com/document/d/1VmevYF21tpwfxodd-yAgfvnvDafEoPGTgcjNYrU5sIg/edit?usp=sharing)
+[Group Google Drive](https://docs.google.com/document/d/1VmevYF21tpwfxodd-yAgfvnvDafEoPGTgcjNYrU5sIg/edit?usp=sharing)
 
 [This is the document we will read from to initialize tech leaders](https://docs.google.com/document/d/1tmmPsHtttA8MilVPLJk6c5BdTkxacolO1o6NC6COBXQ/edit?usp=sharing)
 
