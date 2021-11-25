@@ -1,11 +1,6 @@
 # CIS22C Course Project - Social Media App
 Course Project for CIS22C Data Structures with Jennifer Parrish
 
-## Selected Topic
-[America's Most Innovative Tech Leaders](https://www.forbes.com/lists/innovative-leaders/#4c83800e26aa)
-
-[This is the document we will read from to initialize tech leaders](https://docs.google.com/document/d/1tmmPsHtttA8MilVPLJk6c5BdTkxacolO1o6NC6COBXQ/edit?usp=sharing)
-
 ## Teams
 BST Team: 
 - Sze Chung Wong
@@ -46,3 +41,13 @@ Your project must offer the following options to the user:
 - Quit and Write Records to a File
  
 At the end of the program, when the user selects the Quit option, the data should all be written to a file to allow for modifications to the data to be read in the next time the program is executed.
+
+## Useful Links
+[America's Most Innovative Tech Leaders](https://www.forbes.com/lists/innovative-leaders/#4c83800e26aa)
+
+[Google Drive](https://docs.google.com/document/d/1VmevYF21tpwfxodd-yAgfvnvDafEoPGTgcjNYrU5sIg/edit?usp=sharing)
+
+[This is the document we will read from to initialize tech leaders](https://docs.google.com/document/d/1tmmPsHtttA8MilVPLJk6c5BdTkxacolO1o6NC6COBXQ/edit?usp=sharing)
+
+[Guide to using GitHub](https://docs.google.com/document/d/1Sn5rkcpxtqAFaI5yKO7821TQbsY-_sbEhys36NF5E9s/edit?usp=sharing)
+
