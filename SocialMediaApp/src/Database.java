@@ -52,8 +52,6 @@ public class Database {
 			System.out.println("File not found!");
 		}
 		
-		
-		
 	}
 	
 	
@@ -84,6 +82,11 @@ public class Database {
 		BST friendBST = new BST();
 		User newUser = new User(userID, firstName, lastName, userName, password, city, friendBST, interestLinkedList);
 		allUsers.insert(newUser);
+	}
+	
+	public ArrayList searchByNameReturnListOfResult(String nameKeyword) {
+		ArrayList searchResult = new ArrayList();
+		return searchResult;
 	}
 	
 	//save file when we call the quit method

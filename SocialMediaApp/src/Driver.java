@@ -32,19 +32,27 @@ public class Driver {
 			switch(choice) {
 			case 1:
 //				viewFriend();
-//				searchfriend();
-//				removefriend();
-//				goback();
+//					searchfriend(); //this method should take the input, then display the search result
+//					selectFriend(); //user will enter the userID as their selection, this should return <user> object
+//						displayUser(); // this will just display all the info of the selected user
+//						removefriend(); 
+//						goback();
 			case 2:
 //				makeFriend();
 //					searchbyname();
 //						displayProfile();
+//						selectFriend();
+//							displayUser();
 //							addfriend() or goback();
 //					searchbyInterest();
 //						displayProfile();
+//							selectFriend();
+//							displayUser();
 //							addfriend() or goback();
 //					getRecommendation();
 //						displayProfile();
+//							selectFriend();
+//							displayUser();
 //							addfriend() or goback();
 //					goback();
 			case 3:
