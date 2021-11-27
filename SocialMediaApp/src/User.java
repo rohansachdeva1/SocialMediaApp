@@ -1,6 +1,6 @@
 import java.util.List;
 
-public class User {
+public class User implements Comparable<User>{
 	private int id;
     private String firstName;
     private String lastName;
@@ -76,6 +76,12 @@ public class User {
 	}
 	public void setInterests(List<Interest> interests) {
 		this.interests = interests;
+	}
+
+	@Override
+	public int compareTo(User o) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
     
     
