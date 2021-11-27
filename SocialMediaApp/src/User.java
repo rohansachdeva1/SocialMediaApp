@@ -1,5 +1,7 @@
 import java.util.List;
 
+import Collections.BST;
+
 public class User implements Comparable<User>{
 	private int id;
     private String firstName;
