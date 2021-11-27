@@ -7,6 +7,8 @@ public class Driver {
 		boolean loginStatus = false;
 		int choice;
 		Scanner sc = new Scanner(System.in);
+		Database dataBase = new Database();
+		
 		while (!loginStatus) {
 			System.out.println("Choose the following options ('1', '2' or '3'): ");
 			System.out.println("1: Login");
@@ -17,7 +19,7 @@ public class Driver {
 			case 1:
 //				login(); //might want to return to the main menu if login fail
 			case 2:
-//				createAccount(); //should create a new user
+				dataBase.createUser(); //should create a new user
 				loginStatus = true;
 			}
 		}
@@ -26,7 +28,7 @@ public class Driver {
 			System.out.println("1: View my friends");
 			System.out.println("2: Make new friend");
 			System.out.println("3: Exit");
-			choice = sc.nextInt(); //could give some exception handlings
+			choice = sc.nextInt(); //could give some exception handling
 			switch(choice) {
 			case 1:
 //				viewFriend();
@@ -46,7 +48,7 @@ public class Driver {
 //							addfriend() or goback();
 //					goback();
 			case 3:
-//				Exit(); //save
+				dataBase.writeToFile();
 				loginStatus = false;
 			}
 			

@@ -10,7 +10,7 @@ public class User implements Comparable<User>{
     private BST<User> friends;
     private List<Interest> interests; //recommended to create an Interest class //This should be linkedlist?
     
-    
+    //
 	public User(int id, String firstName, String lastName, String userName, String password, String city,
 			BST friends, List interests) { //changed BST<user> to BST, List<Interst> to List
 		this.id = id;
