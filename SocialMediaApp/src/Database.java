@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import Collections.BST;
+
 /**
  * This class load all the data from the data file and put them in appropriate data structures.
  * The data will be called in other class do do things like search, add friends, etc.
