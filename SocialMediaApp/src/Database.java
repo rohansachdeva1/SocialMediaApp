@@ -5,22 +5,31 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import Collections.*;
+
 /**
  * This class load all the data from the data file and put them in appropriate data structures.
  * The data will be called in other class do do things like search, add friends, etc.
  */
 public class Database {
-	private BST<User> allUsers;
+	private static BST<User> allUsers;
+	private static int numOfUser;
 	
 	
 	// to load the data from a file
 	public Database() {
 		File file = new File("src/data.txt");
+		// create an arraylist to temporarily store the friend list, index 
+		ArrayList<LinkedList<Integer>> tempFriendList = new ArrayList<>();
+		tempFriendList.add(new LinkedList<Integer>());
+		
 		try {
 			BufferedReader br = new BufferedReader(new FileReader(file));
 			String stringFromDataTxt;
+			numOfUser = 0;
 			while ((stringFromDataTxt = br.readLine()) != null) {
 				int userID = Integer.parseInt(stringFromDataTxt);
+				numOfUser++;
 				String fullName = br.readLine();
 				int spaceIndex = fullName.indexOf(" ");
 				String firstName = fullName.substring(0, spaceIndex);
@@ -30,20 +39,27 @@ public class Database {
 				String city = br.readLine();
 				int numOfFriends = Integer.parseInt(br.readLine());
 				
-				BST friendBST = new BST();
+
+				// BST friendBST = new BST();
+				tempFriendList.add(new LinkedList<Integer>());
+				
+				
 				for (int i = 0; i < numOfFriends; i++) {
-					String friendsName = br.readLine();
-					friendBST.insert(friendsName); // or change it to <User>? It should be string when constructing?
+					int friendID = Integer.parseInt(br.readLine());
+					tempFriendList.get(numOfUser).addLast(friendID);
 				}
+
 				
 				int numOfInterests = Integer.parseInt(br.readLine());
-				ArrayList interestLinkedList = new ArrayList();
-//				interestLinkedList.positionIterator();
-				for (int i = 0; i < numOfInterests; i++) {
+				LinkedList<Interest> interestLinkedList = new LinkedList<>();
+				
+				for (int j = 0; j < numOfInterests ; j++){
 					String interestName = br.readLine();
-					interestLinkedList.add(interestName); //or change it to <Interest>? We can build interest object on the fly.
+					// FIXME: Use hashtable to search for interest object, if not exist, create one
+					Interest interestobj = new Interest();
+					interestLinkedList.addLast(interestobj); 
 				}
-				User newUser = new User(userID, firstName, lastName, userName, password, city, friendBST, interestLinkedList);
+				User newUser = new User(userID, firstName, lastName, userName, password, city, interestLinkedList);
 				allUsers = new BST<User>();
 				allUsers.insert(newUser);
 			}
@@ -68,19 +84,23 @@ public class Database {
 		System.out.println("Please enter your city: ");
 		String city = sc.next();
 		boolean endOfInterest = false;
+		LinkedList<Interest> interestLinkedList = new LinkedList<>();
 		while (!endOfInterest) {
 			System.out.println("Please enter your interests (enter '0' if there is not more interest to add): ");
 			String interest = sc.next();
+			
 			if (interest != "0") {
 				//buildInterest();
 				continue;
 			}
 			endOfInterest = true;
 		}
+		numOfUser++;
 		//generate a new user ID after the largest user ID in the database
-		int userID = lastUserID + 1;
-		BST friendBST = new BST();
-		User newUser = new User(userID, firstName, lastName, userName, password, city, friendBST, interestLinkedList);
+		int userID = numOfUser;
+		
+		//BST friendBST = new BST(); // should start with no friends, then the user can add friends
+		User newUser = new User(userID, firstName, lastName, userName, password, city, interestLinkedList);
 		allUsers.insert(newUser);
 	}
 	

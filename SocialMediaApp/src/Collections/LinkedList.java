@@ -1,3 +1,4 @@
+package Collections;
 
 /**
  * Defines a doubly-linked list class

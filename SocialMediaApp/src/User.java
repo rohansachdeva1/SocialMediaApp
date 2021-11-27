@@ -1,4 +1,4 @@
-import java.util.List;
+import Collections.*;
 
 public class User implements Comparable<User>{
 	private int id;
@@ -8,11 +8,43 @@ public class User implements Comparable<User>{
     private String password;
     private String city;
     private BST<User> friends;
-    private List<Interest> interests; //recommended to create an Interest class //This should be linkedlist?
+    private LinkedList<Interest> interests;
     
-    //
+    //default constructor
+	public User() {
+		this.id = -1;
+		this.firstName = "";
+		this.lastName = "";
+		this.userName = "";
+		this.password = "";
+		this.city = "";
+		this.friends = new BST<>();
+		this.interests = new LinkedList<>();
+	}
+    
+	public User(int id, String firstName, String lastName, String userName) {
+		super();
+		this.id = id;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.userName = userName;
+
+	}
+	
 	public User(int id, String firstName, String lastName, String userName, String password, String city,
-			BST friends, List interests) { //changed BST<user> to BST, List<Interst> to List
+			LinkedList interests) {
+		this.id = id;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.userName = userName;
+		this.password = password;
+		this.city = city;
+		this.friends = new BST<>();
+		this.interests = interests;
+	}
+
+	public User(int id, String firstName, String lastName, String userName, String password, String city,
+			BST friends, LinkedList interests) {
 		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -71,10 +103,10 @@ public class User implements Comparable<User>{
 		this.friends = friends;
 	}
 	
-	public List<Interest> getInterests() {
+	public LinkedList<Interest> getInterests() {
 		return interests;
 	}
-	public void setInterests(List<Interest> interests) {
+	public void setInterests(LinkedList<Interest> interests) {
 		this.interests = interests;
 	}
 
