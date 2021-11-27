@@ -86,19 +86,23 @@ public class Database {
 		System.out.println("Please enter your city: ");
 		String city = sc.next();
 		boolean endOfInterest = false;
+		LinkedList<Interest> interestLinkedList = new LinkedList<>();
 		while (!endOfInterest) {
 			System.out.println("Please enter your interests (enter '0' if there is not more interest to add): ");
 			String interest = sc.next();
+			
 			if (interest != "0") {
 				//buildInterest();
 				continue;
 			}
 			endOfInterest = true;
 		}
+		numOfUser++;
 		//generate a new user ID after the largest user ID in the database
-		int userID = lastUserID + 1;
-		BST friendBST = new BST();
-		User newUser = new User(userID, firstName, lastName, userName, password, city, friendBST, interestLinkedList);
+		int userID = numOfUser;
+		
+		//BST friendBST = new BST(); // should start with no friends, then the user can add friends
+		User newUser = new User(userID, firstName, lastName, userName, password, city, interestLinkedList);
 		allUsers.insert(newUser);
 	}
 	
