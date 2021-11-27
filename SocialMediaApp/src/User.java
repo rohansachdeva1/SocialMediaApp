@@ -1,6 +1,6 @@
 import java.util.List;
 
-public class User {
+public class User implements Comparable<User>{
 	private int id;
     private String firstName;
     private String lastName;
@@ -8,11 +8,11 @@ public class User {
     private String password;
     private String city;
     private BST<User> friends;
-    private List<Interest> interests; //recommended to create an Interest class
+    private List<Interest> interests; //recommended to create an Interest class //This should be linkedlist?
     
     
 	public User(int id, String firstName, String lastName, String userName, String password, String city,
-			BST<User> friends, List<Interest> interests) {
+			BST friends, List interests) { //changed BST<user> to BST, List<Interst> to List
 		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -76,6 +76,12 @@ public class User {
 	}
 	public void setInterests(List<Interest> interests) {
 		this.interests = interests;
+	}
+
+	@Override
+	public int compareTo(User o) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
     
     

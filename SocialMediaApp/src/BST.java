@@ -30,7 +30,7 @@ public class BST<T extends Comparable<T>> {
      * sets root to null
      */
     public BST() {
-      
+    	root = null;
     }
    
     /**
