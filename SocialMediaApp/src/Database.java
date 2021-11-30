@@ -4,6 +4,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.*;
 
 import Collections.*;
 
@@ -13,9 +14,9 @@ import Collections.*;
  */
 public class Database {
 	private ArrayList<LinkedList<Integer>> allUsers; // graph database of all friend connections between users
-	private BST<User> userList = new BST<>(); // stores all users in a BST of user objects
+	private BST<User> userBST = new BST<>(); // stores all users in a BST of user objects
 	
-	private ArrayList<User> userIDs; // arraylist of users stored at the position of their id's
+	private ArrayList<User> userList; // arraylist of users stored at the position of their id's
 	private ArrayList<BST> interests; // array list of interests and which users have them
 
 	// BFS ArrayLists for recommendation alg
@@ -33,10 +34,18 @@ public class Database {
 		//		ArrayList<LinkedList<Integer>> tempFriendList = new ArrayList<>();
 		//		tempFriendList.add(new LinkedList<Integer>());
 
+		// initialize data structures and create 0th place
 		allUsers = new ArrayList<>();
 		allUsers.add(new LinkedList<>()); // 0th linked list, not used
 		interests = new ArrayList<>();
 		interests.add(new BST<>()); // 0th linked list, not used
+		userList = new ArrayList<>();
+		userList.add(new User<>()); // 0th linked list, not used // am i doing this right
+
+		distance = new ArrayList<>();
+		distance.add(-1); // 0th linked list, not used
+		interestScore = new ArrayList<>();
+		interestScore.add(-1); // 0th linked list, not used
 		
 		try {
 			BufferedReader br = new BufferedReader(new FileReader(file));
@@ -70,6 +79,8 @@ public class Database {
 				// Add linked list for each new user
 				// 		tempFriendList.add(new LinkedList<Integer>());
 				allUsers.add(new LinkedList<>());
+				distance.add(-1);
+				interestScore.add(-1);
 				numUsers++;
 				
 				// Loop through user's friend list and add to database
@@ -96,7 +107,8 @@ public class Database {
 
 				// Create new user from input data
 				User newUser = new User(userID, firstName, lastName, userName, password, city, interestLinkedList);
-				
+				userList.add(newUser);
+
 				// Loop through interests and add to arraylist
 				for (int j = 0; j < numOfInterests; j++){
 					String interestName = br.readLine();
@@ -123,7 +135,7 @@ public class Database {
 					interestLinkedList.advanceIterator();
 				}
 
-				userList.insert(newUser);
+				userBST.insert(newUser);
 			}
 		
 		} catch (IOException e) {
@@ -215,13 +227,26 @@ public class Database {
             allUsers.get(x).positionIterator();
 
             while (allUsers.get(x).offEnd() == false) {
+				// if user has not been visited, set distance in distance arraylist
                 if (distance.get(allUsers.get(x).getIterator()) == -1) {
                     distance.set(allUsers.get(x).getIterator(), distance.get(x) + 1);
 
+					// calculate interest score between source and current user, store in interestScore arraylist
 					if (distance.get(allUsers.get(x).getIterator()) > 1) {
-						// calculate interest score between source and it
-					}
+						userList.get(source).interests.positionIterator();
+						userList.get(x).interests.positionIterator();
+						int count = 0;
 
+						while (userList.get(source).interests.offEnd() != true && userList.get(x).interests.offEnd() != true) {
+							if (userList.get(source).interests.getIterator().compareTo(userList.get(x).interests.getIterator()) == 0) {
+								count++;
+							}
+							userList.get(source).interests.advanceIterator();
+							userList.get(x).interests.advanceIterator();
+						}
+						interestScore.set(x, count);
+						count = 0;
+					}
                     Q.addLast(allUsers.get(x).getIterator());
                 }
                 allUsers.get(x).advanceIterator();
@@ -229,8 +254,25 @@ public class Database {
         }
     }
 
+	public int calcHighestScore(ArrayList input) {
+		int highest = Collections.max(input);
+		int index = input.indexOf(highest);
+		return index;
+	}
 
 	// Recommendation Method
-	
-	
+	public LinkedList recommendFriends(int source) {
+		LinkedList<User> answer = new LinkedList<>(); // linked list of users in order of final recommendation
+
+		allUsers.BFS(source);
+
+		int highestIndex = calcHighestScore(interestScore);
+		while (highestIndex != -1) {
+			answer.addLast(userList.get(highestIndex));
+			interestScore.set(highestIndex, -1);
+			highestIndex = calcHighestScore(interestScore);
+		}
+
+		return answer;
+	}
 }
