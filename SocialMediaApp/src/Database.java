@@ -12,12 +12,17 @@ import Collections.*;
  * The data will be called in other class do do things like search, add friends, etc.
  */
 public class Database {
-	private ArrayList<LinkedList<Integer>> allUsers; // graph database of all users
-	private static int numUsers; // holds number of users, used to create user id
+	private ArrayList<LinkedList<Integer>> allUsers; // graph database of all friend connections between users
+	private BST<User> userList = new BST<>(); // stores all users in a BST of user objects
+	
+	private ArrayList<User> userIDs; // arraylist of users stored at the position of their id's
+	private ArrayList<BST> interests; // array list of interests and which users have them
+
+	// BFS ArrayLists for recommendation alg
 	private ArrayList<Integer> distance; // used in BFS to store distances from initial node
 	private ArrayList<Integer> interestScore; // array list of score calculated from # of interests in common between 2 users
-	private ArrayList<Integer> interests; // array list of interests and which users have them
-	private BST<User> userList = new BST<>();
+
+	private static int numUsers; // holds number of users, used to create user id
 	
 	
 	// to load the data from a file
@@ -30,6 +35,8 @@ public class Database {
 
 		allUsers = new ArrayList<>();
 		allUsers.add(new LinkedList<>()); // 0th linked list, not used
+		interests = new ArrayList<>();
+		interests.add(new BST<>()); // 0th linked list, not used
 		
 		try {
 			BufferedReader br = new BufferedReader(new FileReader(file));
@@ -74,9 +81,24 @@ public class Database {
 				// Create arraylist of interests
 				int numOfInterests = Integer.parseInt(br.readLine());
 				LinkedList<Interest> interestLinkedList = new LinkedList<>();
-				
+
 				// Loop through interests and add to arraylist
 				for (int j = 0; j < numOfInterests ; j++){
+					String interestName = br.readLine();
+					int currentID = hash(interestName); // HASH TEAM
+					/*
+					HASH TEAM: hash(interestName) above needs to return back the interest id
+					 */
+
+					Interest interestobj = new Interest();
+					interestLinkedList.addLast(interestobj); 
+				} // NEEDS WORK creating interest obj
+
+				// Create new user from input data
+				User newUser = new User(userID, firstName, lastName, userName, password, city, interestLinkedList);
+				
+				// Loop through interests and add to arraylist
+				for (int j = 0; j < numOfInterests; j++){
 					String interestName = br.readLine();
 					/*
 					HASH TEAM: Use a hashtable to search for interest object
@@ -90,11 +112,17 @@ public class Database {
 					//Interest interestobj = new Interest();
 					//interestLinkedList.addLast(interestobj); 
 
-					interests.get(position).addLast(userID);
+					interests.get(position).insert(userID);
 				}
 
-				// Create new user from input data
-				User newUser = new User(userID, firstName, lastName, userName, password, city, interestLinkedList);
+				// Loop through interests linked list and add user to each interest in interest arraylist BST
+				interestLinkedList.positionIterator();
+				while (interestLinkedList.offEnd() == false) {
+					int position = interestLinkedList.getIterator().getID();
+					interests.get(position).insert(newUser);
+					interestLinkedList.advanceIterator();
+				}
+
 				userList.insert(newUser);
 			}
 		
@@ -129,9 +157,8 @@ public class Database {
 			}
 			endOfInterest = true;
 		}
-		numOfUser++;
 		//generate a new user ID after the largest user ID in the database
-		int userID = numOfUser;
+		int userID = ++numUsers;
 		
 		//BST friendBST = new BST(); // should start with no friends, then the user can add friends
 		User newUser = new User(userID, firstName, lastName, userName, password, city, interestLinkedList);
@@ -147,6 +174,63 @@ public class Database {
 	public void writeToFile() {
 		
 	}
+
+	// BFS method
+	public void BFS(Integer source) {
+        /*
+        for all verticies in adj                
+			color[x] = white     
+			distance[x] = -1       
+			parent[x] = Nil              
+		color[s] = grey                 
+		distance[s] = 0                  
+		Enqueue(Q,s)
+			
+		while(Q is not empty)
+			x = front of Q
+			Dequeue(Q,x)
+			for all y in adj[x]
+				if color[y] == white
+					color[y] = grey
+					distance[y] = distance[x] + 1
+					parent[y] = x
+					Enqueue(Q, y)
+			color[x] = black
+         */
+
+        LinkedList<Integer> Q = new LinkedList<Integer>(); // temp linked list to store queue
+
+		// set all initial values to -1 for both distance arraylist and interestScore arraylist
+        for (int i = 1; i <= this.numUsers; i++) {
+            distance.set(i, -1);
+            interestScore.set(i, -1);
+        }
+
+        distance.set(source, 0);
+        Q.addLast(source);
+
+        while (Q.isEmpty() == false) {
+            int x = (int)Q.getFirst();
+            Q.removeFirst();
+            allUsers.get(x).positionIterator();
+
+            while (allUsers.get(x).offEnd() == false) {
+                if (distance.get(allUsers.get(x).getIterator()) == -1) {
+                    distance.set(allUsers.get(x).getIterator(), distance.get(x) + 1);
+
+					if (distance.get(allUsers.get(x).getIterator()) > 1) {
+						// calculate interest score between source and it
+					}
+
+                    Q.addLast(allUsers.get(x).getIterator());
+                }
+                allUsers.get(x).advanceIterator();
+            }
+        }
+    }
+
+
+	// Recommendation Method
 	
 	
 }
