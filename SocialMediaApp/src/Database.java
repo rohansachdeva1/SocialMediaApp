@@ -13,13 +13,19 @@ import Collections.*;
  * The data will be called in other class do do things like search, add friends, etc.
  */
 public class Database {
-	private ArrayList<LinkedList<Integer>> allUsers; // graph database of all friend connections between users
+
+	/*
+	All teams, organize your data structures here by comments,
+	that way we can keep track of whos is whos
+	ex. graph team below
+	 */
+
 	private BST<User> userBST = new BST<>(); // stores all users in a BST of user objects
-	
 	private ArrayList<User> userList; // arraylist of users stored at the position of their id's
 	private ArrayList<BST> interests; // array list of interests and which users have them
 
-	// BFS ArrayLists for recommendation alg
+	// Graph Team Data Structures for graph database, BFS and recommendation alg
+	private ArrayList<LinkedList<Integer>> allUsers; // graph database of all friend connections between users
 	private ArrayList<Integer> distance; // used in BFS to store distances from initial node
 	private ArrayList<Integer> interestScore; // array list of score calculated from # of interests in common between 2 users
 
@@ -35,13 +41,14 @@ public class Database {
 		//		tempFriendList.add(new LinkedList<Integer>());
 
 		// initialize data structures and create 0th place
-		allUsers = new ArrayList<>();
-		allUsers.add(new LinkedList<>()); // 0th linked list, not used
 		interests = new ArrayList<>();
 		interests.add(new BST<>()); // 0th linked list, not used
+
+		// Graph Team initialize data structures and create 0th place
+		allUsers = new ArrayList<>();
+		allUsers.add(new LinkedList<>()); // 0th linked list, not used
 		userList = new ArrayList<>();
 		userList.add(new User<>()); // 0th linked list, not used // am i doing this right
-
 		distance = new ArrayList<>();
 		distance.add(-1); // 0th linked list, not used
 		interestScore = new ArrayList<>();
@@ -79,10 +86,8 @@ public class Database {
 				// Add linked list for each new user
 				// 		tempFriendList.add(new LinkedList<Integer>());
 				allUsers.add(new LinkedList<>());
-				distance.add(-1);
-				interestScore.add(-1);
 				numUsers++;
-				
+
 				// Loop through user's friend list and add to database
 				for (int i = 0; i < numOfFriends; i++) {
 					int friendID = Integer.parseInt(br.readLine());
@@ -96,33 +101,28 @@ public class Database {
 				// Loop through interests and add to arraylist
 				for (int j = 0; j < numOfInterests ; j++){
 					String interestName = br.readLine();
-					int currentID = hash(interestName); // HASH TEAM
+					int interestID = hash(interestName); // HASH TEAM
 					/*
 					HASH TEAM: hash(interestName) above needs to return back the interest id
 					 */
 
 					Interest interestobj = new Interest();
 					interestLinkedList.addLast(interestobj); 
-				} // NEEDS WORK creating interest obj
+				} // NEEDS WORK creating interest ob
 
 				// Create new user from input data
 				User newUser = new User(userID, firstName, lastName, userName, password, city, interestLinkedList);
 				userList.add(newUser);
+				distance.add(-1);
+				interestScore.add(-1);
 
 				// Loop through interests and add to arraylist
 				for (int j = 0; j < numOfInterests; j++){
 					String interestName = br.readLine();
 					/*
-					HASH TEAM: Use a hashtable to search for interest object
-					need method that takes interestName as parameter and returns 
-					its postion in interests arraylist
+					HASH TEAM: same as above, need interest id from interest name
 					*/ 
-					// need to figure out how to size interest arraylist when we do 
-					// not know the amount of interests from the start
 					int position = hash(interestName);
-
-					//Interest interestobj = new Interest();
-					//interestLinkedList.addLast(interestobj); 
 
 					interests.get(position).insert(userID);
 				}
@@ -254,7 +254,7 @@ public class Database {
         }
     }
 
-	public int calcHighestScore(ArrayList input) {
+	public int calcHighestIndex(ArrayList input) {
 		int highest = Collections.max(input);
 		int index = input.indexOf(highest);
 		return index;
@@ -263,14 +263,14 @@ public class Database {
 	// Recommendation Method
 	public LinkedList recommendFriends(int source) {
 		LinkedList<User> answer = new LinkedList<>(); // linked list of users in order of final recommendation
-
 		allUsers.BFS(source);
 
-		int highestIndex = calcHighestScore(interestScore);
+		// add eligible users to linked list in order of most interests shared
+		int highestIndex = calcHighestIndex(interestScore);
 		while (highestIndex != -1) {
 			answer.addLast(userList.get(highestIndex));
 			interestScore.set(highestIndex, -1);
-			highestIndex = calcHighestScore(interestScore);
+			highestIndex = calcHighestIndex(interestScore);
 		}
 
 		return answer;
