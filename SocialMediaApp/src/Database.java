@@ -55,11 +55,8 @@ public class Database {
 		interestScore.add(-1); // 0th linked list, not used
 		
 		try {
-			BufferedReader br = new BufferedReader(new FileReader(file));
-			String stringFromDataTxt;
-			numUsers = 0;
-
-			/* INPUT FILE FORMAT FOR EACH USER
+			/* 
+			INPUT FILE FORMAT FOR EACH USER
 			id
 			name
 			username
@@ -70,6 +67,10 @@ public class Database {
 			total number of interests
 			list of interests, each on a separate line
 			*/
+
+			BufferedReader br = new BufferedReader(new FileReader(file));
+			String stringFromDataTxt;
+			numUsers = 0;
 
 			// Loop through input file and take in all user data
 			while ((stringFromDataTxt = br.readLine()) != null) {
@@ -98,7 +99,7 @@ public class Database {
 				int numOfInterests = Integer.parseInt(br.readLine());
 				LinkedList<Interest> interestLinkedList = new LinkedList<>();
 
-				// Loop through interests and add to arraylist
+				// Add each interest to user's individual linked list of interests
 				for (int j = 0; j < numOfInterests ; j++){
 					String interestName = br.readLine();
 					int interestID = hash(interestName); // HASH TEAM
@@ -106,8 +107,10 @@ public class Database {
 					HASH TEAM: hash(interestName) above needs to return back the interest id
 					 */
 
-					Interest interestobj = new Interest();
-					interestLinkedList.addLast(interestobj); 
+					Interest tempInterestObj = new Interest(interestName);
+					interestLinkedList.addLast(tempInterestObj); // add interest object to linked list
+
+					interests.get(interestID).insert(userID); // add userID to interest BST
 				} // NEEDS WORK creating interest ob
 
 				// Create new user from input data
@@ -115,17 +118,6 @@ public class Database {
 				userList.add(newUser);
 				distance.add(-1);
 				interestScore.add(-1);
-
-				// Loop through interests and add to arraylist
-				for (int j = 0; j < numOfInterests; j++){
-					String interestName = br.readLine();
-					/*
-					HASH TEAM: same as above, need interest id from interest name
-					*/ 
-					int position = hash(interestName);
-
-					interests.get(position).insert(userID);
-				}
 
 				// Loop through interests linked list and add user to each interest in interest arraylist BST
 				interestLinkedList.positionIterator();
@@ -189,26 +181,6 @@ public class Database {
 
 	// BFS method
 	public void BFS(Integer source) {
-        /*
-        for all verticies in adj                
-			color[x] = white     
-			distance[x] = -1       
-			parent[x] = Nil              
-		color[s] = grey                 
-		distance[s] = 0                  
-		Enqueue(Q,s)
-			
-		while(Q is not empty)
-			x = front of Q
-			Dequeue(Q,x)
-			for all y in adj[x]
-				if color[y] == white
-					color[y] = grey
-					distance[y] = distance[x] + 1
-					parent[y] = x
-					Enqueue(Q, y)
-			color[x] = black
-         */
 
         LinkedList<Integer> Q = new LinkedList<Integer>(); // temp linked list to store queue
 
@@ -263,7 +235,7 @@ public class Database {
 	// Recommendation Method
 	public LinkedList recommendFriends(int source) {
 		LinkedList<User> answer = new LinkedList<>(); // linked list of users in order of final recommendation
-		allUsers.BFS(source);
+		allUsers.BFS(source); // call BFS on user graph, update distance and interestScore arraylists
 
 		// add eligible users to linked list in order of most interests shared
 		int highestIndex = calcHighestIndex(interestScore);
