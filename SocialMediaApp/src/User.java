@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 
 public class User implements Comparable<User>{
 	private int id;
@@ -126,8 +127,13 @@ public class User implements Comparable<User>{
 	 * 2. Bill Gates
 	 * 3. etc.
 	 */
-	public void displaySortedFriendList() {
+	public ArrayList<User> getSortedFriendArrayList() {
+		return sortedFriendArrayList;
 		
+	}
+	
+	public ArrayList<User> searchFromFriendList(String targetName) {
+		return result;
 	}
 	
 

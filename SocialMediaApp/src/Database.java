@@ -270,12 +270,34 @@ public class Database {
 		return answer;
 	}
 	
+	/* Jo / Steven, BST
+	 * ------------------------Not finished-----------------------------
+	 */
+	public ArrayList<User> searchUserByName(String targetName){
+		return result;
+	}
+	
+	public ArrayList<User> searchUserByInterest(String targetInterest){
+		return result;
+	}
+	
+	
+	
 	/* Needs everyone's input on this
-	 * 
+	 * ------------------------Not finished-----------------------------
 	 */
 	public void removeFriend(User toBeRemovedUser) {
 		
 	}
+	
+	/* Needs everyone's input on this
+	 * ------------------------Not finished-----------------------------
+	 */
+	public void addFriend(User toBeRemovedUser) {
+		
+	}
+	
+	
 	
 	//Hash method
 	private int hash(T t) {
