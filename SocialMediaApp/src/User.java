@@ -1,4 +1,3 @@
-import Collections.*;
 
 public class User implements Comparable<User>{
 	private int id;
@@ -109,6 +108,11 @@ public class User implements Comparable<User>{
 	public void setInterests(LinkedList<Interest> interests) {
 		this.interests = interests;
 	}
+	
+	public void addFriends(User friend) {
+		this.friends.insert(friend);
+	}
+	
 
 	@Override
 	public int compareTo(User o) {
