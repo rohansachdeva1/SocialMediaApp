@@ -91,8 +91,6 @@ public class Database {
 				String city = br.readLine();
 				int numOfFriends = Integer.parseInt(br.readLine());
 				
-				// Add linked list for each new user
-				// 		tempFriendList.add(new LinkedList<Integer>());
 				allUsers.add(new LinkedList<Integer>());
 				numUsers++;
 
