@@ -27,7 +27,7 @@ public class Driver {
 			switch(choice) {
 			case 1:
 				/*
-				 * Hashtable group
+				 * ------------------------------------Hashtable group------------------------------------
 				 * Please also return the logged in user
 				 * might want to return to the main menu if login fail 
 				 */
@@ -46,9 +46,9 @@ public class Driver {
 				choice = sc.nextInt(); //could give some exception handling
 				switch(choice) {
 				case 1:
-					viewFriend(); //the code is written below, implement your method in viewFriend();
+					viewFriend();
 				case 2:
-					makeFriendsOutsideOfTheCircle(); //the code is written below, implement your method in viewFriend();
+					makeFriendsOutsideOfTheCircle();
 				case 3:
 					database.writeToFile();
 					loginStatus = false;
@@ -73,7 +73,7 @@ public class Driver {
 			System.out.println("Enter the following options ('1', '2' or '3'): ");
 			System.out.println("1. View sorted friend list");
 			System.out.println("2. Search friends their their names");
-			System.out.println("3. Go back to the previous page"); //not implmented
+			System.out.println("3. Go back to the previous page");
 			choice = sc.nextInt();
 			switch (choice) {
 			case 1: //view sorted friend
@@ -87,7 +87,7 @@ public class Driver {
 				selectedUser.displayUserProfile();
 				System.out.println("Enter the following options ('1' or '2'): ");
 				System.out.println("1. Remove this friend");
-				System.out.println("Go back to the previous page"); //hasn't implemented yet
+				System.out.println("Go back to the previous page");
 				choice = sc.nextInt();
 				switch (choice) {
 				case 1:
@@ -111,7 +111,7 @@ public class Driver {
 				selectedUser.displayUserProfile();
 				System.out.println("Enter the following options ('1' or '2'): ");
 				System.out.println("1. Remove this friend");
-				System.out.println("2. Go back to the previous page"); //hasn't implemented yet
+				System.out.println("2. Go back to the previous page");
 				choice = sc.nextInt();
 				switch (choice) {
 				case 1:
@@ -144,7 +144,7 @@ public class Driver {
 			System.out.println("Enter the following options ('1', '2' or '3'): ");
 			System.out.println("1. Search users by name ");
 			System.out.println("2. Search users by interest");
-			System.out.println("3. Go back to the previous page"); //not implmented
+			System.out.println("3. Go back to the previous page");
 			choice = sc.nextInt();
 			switch (choice) {
 			case 1:
@@ -160,7 +160,7 @@ public class Driver {
 				selectedUser.displayUserProfile();
 				System.out.println("Enter the following options ('1' or '2'): ");
 				System.out.println("1. add this user");
-				System.out.println("2. Go back to the previous page"); //hasn't implemented yet
+				System.out.println("2. Go back to the previous page");
 				choice = sc.nextInt();
 				switch (choice) {
 				case 1:
@@ -183,7 +183,7 @@ public class Driver {
 				selectedUser.displayUserProfile();
 				System.out.println("Enter the following options ('1' or '2'): ");
 				System.out.println("1. add this user");
-				System.out.println("2. Go back to the previous page"); //hasn't implemented yet
+				System.out.println("2. Go back to the previous page");
 				choice = sc.nextInt();
 				switch (choice) {
 				case 1:
@@ -204,7 +204,7 @@ public class Driver {
 				selectedUser.displayUserProfile();
 				System.out.println("Enter the following options ('1' or '2'): ");
 				System.out.println("1. add this user");
-				System.out.println("2. Go back to the previous page"); //hasn't implemented yet
+				System.out.println("2. Go back to the previous page");
 				choice = sc.nextInt();
 				switch (choice) {
 				case 1:

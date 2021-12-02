@@ -156,7 +156,10 @@ public class Database {
 		
 	}
 	
-	
+	/*
+	 * This method will also return the newly created user for the driver class.
+	 * 
+	 */
 	public User createUser() {
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Please enter your first name: ");
@@ -188,6 +191,7 @@ public class Database {
 		User newUser = new User(userID, firstName, lastName, userName, password, city, interestLinkedList);
 		allUsers.insert(newUser); //To graph team: Do you mean to insert UserId?
 		
+		addFriend(newUser); //We will need to use the addFriend method to update our data structure.
 		return newUser;
 		
 	}
@@ -300,7 +304,7 @@ public class Database {
 	/* Needs everyone's input on this
 	 * ------------------------Not finished-----------------------------
 	 */
-	public void addFriend(User toBeRemovedUser) {
+	public void addFriend(User toBeAddeddUser) {
 		
 	}
 	
