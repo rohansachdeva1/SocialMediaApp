@@ -48,9 +48,9 @@ public class Database {
 
 		// Graph Team initialize data structures and create 0th place
 		allUsers = new ArrayList<>();
-		allUsers.add(new LinkedList<>()); // 0th linked list, not used
+		allUsers.add(new LinkedList<Integer>()); // 0th linked list, not used
 		userList = new ArrayList<>();
-		userList.add(new User<>()); // 0th linked list, not used // am i doing this right
+		userList.add(new User()); // 0th linked list, not used // am i doing this right
 		distance = new ArrayList<>();
 		distance.add(-1); // 0th linked list, not used
 		interestScore = new ArrayList<>();
@@ -93,7 +93,7 @@ public class Database {
 				
 				// Add linked list for each new user
 				// 		tempFriendList.add(new LinkedList<Integer>());
-				allUsers.add(new LinkedList<>());
+				allUsers.add(new LinkedList<Integer>());
 				numUsers++;
 
 				// Loop through user's friend list and add to database
