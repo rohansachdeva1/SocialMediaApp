@@ -94,7 +94,7 @@ public class Database {
 				allUsers.add(new LinkedList<Integer>());
 				numUsers++;
 
-				// Loop through user's friend list and add to database //this is unfinished, don't rely on this for loop
+				// Loop through user's friend list and add to graph as integer of userId
 				for (int i = 0; i < numOfFriends; i++) {
 					int friendID = Integer.parseInt(br.readLine());
 					allUsers.get(numUsers).addLast(friendID); //
@@ -117,7 +117,7 @@ public class Database {
 					interests.get(interestID).insert(userID); // add userID to interest BST
 				} // NEEDS WORK creating interest ob
 
-				// Create new user from input data
+				// Create new user from input data -- with empty friendlist
 				User newUser = new User(userID, firstName, lastName, userName, password, city, interestLinkedList);
 				userList.add(newUser);
 				distance.add(-1);
@@ -127,12 +127,16 @@ public class Database {
 				// Loop through interests linked list and add user to each interest in interest arraylist BST
 				interestLinkedList.positionIterator();
 				while (interestLinkedList.offEnd() == false) {
-					int position = interestLinkedList.getIterator().getID();
+					int position = interestLinkedList.getIterator().getId();
 					interests.get(position).insert(newUser);
 					interestLinkedList.advanceIterator();
 				}
 
 				userBST.insert(newUser);
+				
+				// Added User objects to each User's friend list
+				
+				
 			}
 		
 		} catch (IOException e) {
@@ -171,7 +175,9 @@ public class Database {
 		
 		//BST friendBST = new BST(); // should start with no friends, then the user can add friends
 		User newUser = new User(userID, firstName, lastName, userName, password, city, interestLinkedList);
-		allUsers.insert(newUser);
+		allUsers.insert(newUser); //To graph team: Do you mean to insert UserId?
+		
+		
 	}
 	
 	public ArrayList searchByNameReturnListOfResult(String nameKeyword) {
