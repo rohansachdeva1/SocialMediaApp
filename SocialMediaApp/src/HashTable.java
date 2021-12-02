@@ -1,4 +1,3 @@
-package Collections;
 /**
  * HashTable.java
  * @author Albert Tran

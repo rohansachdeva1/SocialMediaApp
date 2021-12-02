@@ -94,10 +94,10 @@ public class Database {
 				allUsers.add(new LinkedList<Integer>());
 				numUsers++;
 
-				// Loop through user's friend list and add to database
+				// Loop through user's friend list and add to database //this is unfinished, don't rely on this for loop
 				for (int i = 0; i < numOfFriends; i++) {
 					int friendID = Integer.parseInt(br.readLine());
-					allUsers.get(numUsers).addLast(friendID);
+					allUsers.get(numUsers).addLast(friendID); //
 				}
 
 				// Create arraylist of interests
