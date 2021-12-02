@@ -136,6 +136,10 @@ public class User implements Comparable<User>{
 		return result;
 	}
 	
+	public ArrayList<User> getRecommendation() {
+		return result;
+	}
+	
 
 	@Override
 	public int compareTo(User o) {

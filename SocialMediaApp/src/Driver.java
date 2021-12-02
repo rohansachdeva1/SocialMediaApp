@@ -8,13 +8,14 @@ import java.util.Scanner;
  */
 
 public class Driver {
-	
+	static Database database;
+	static User currentUser;
 
 	public static void main(String[] args) {
 		boolean loginStatus = false;
 		int choice;
 		Scanner sc = new Scanner(System.in);
-		Database dataBase = new Database();
+		Database database = new Database();
 		User currentUser; //This is assigned at the login
 		
 		while (!loginStatus) {
@@ -32,7 +33,7 @@ public class Driver {
 				 */
 //				login(); 
 			case 2:
-				dataBase.createUser(); //should create a new user, general method
+				database.createUser(); //should create a new user, general method
 				loginStatus = true;
 			}
 		}
@@ -69,7 +70,7 @@ public class Driver {
 //							addfriend() or goback(); Everyone's effort
 //					goback();
 			case 3:
-				dataBase.writeToFile();
+				database.writeToFile();
 				loginStatus = false;
 			}
 			
@@ -80,8 +81,10 @@ public class Driver {
 	/* Helper method to view friends of the current user.
 	 * Current user can remove / sort / search their friend here.
 	 */
-	public void viewFriend() {
+	public static void viewFriend() {
 		int choice;
+		int index;
+		User selectedUser;
 		
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Enter the following options ('1', '2' or '3'): ");
@@ -95,9 +98,9 @@ public class Driver {
 			displayArrayListUser(sortedFriendList);
 			
 			System.out.println("Enter the friend number ('1', '2', '3' etc.): ");
-			int index = sc.nextInt();
+			index = sc.nextInt();
 			
-			User selectedUser = getSelectedUser(sortedFriendList, index);
+			selectedUser = getSelectedUser(sortedFriendList, index);
 			selectedUser.displayUserProfile();
 			System.out.println("Enter the following options ('1' or '2'): ");
 			System.out.println("1. Remove this friend");
@@ -106,7 +109,7 @@ public class Driver {
 			switch (choice) {
 			case 1:
 				//remove friend
-				database.removeFriend();
+				database.removeFriend(selectedUser);
 			case 2:
 				//go back
 			}
@@ -119,9 +122,9 @@ public class Driver {
 			displayArrayListUser(searchResult);
 			
 			System.out.println("Enter the friend number ('1', '2', '3' etc.): ");
-			int index = sc.nextInt();
+			index = sc.nextInt();
 			
-			User selectedUser = getSelectedUser(searchResult, index);
+			selectedUser = getSelectedUser(searchResult, index);
 			selectedUser.displayUserProfile();
 			System.out.println("Enter the following options ('1' or '2'): ");
 			System.out.println("1. Remove this friend");
@@ -130,7 +133,7 @@ public class Driver {
 			switch (choice) {
 			case 1:
 				//remove friend
-				database.removeFriend();
+				database.removeFriend(selectedUser);
 			case 2:
 				//go back
 			}
@@ -142,8 +145,12 @@ public class Driver {
 	 * Current user can searchbyname, searchbyinterest, and get recommendation, then add friends from the list.
 	 * Should not be able to add a user that is already current user's friend
 	 */
-	public void makeFriendsOutsideOfTheCircle() {
+	public static void makeFriendsOutsideOfTheCircle() {
 		int choice;
+		int index;
+		User selectedUser;
+		ArrayList<User> searchResult;
+		
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Enter the following options ('1', '2' or '3'): ");
 		System.out.println("1. Search users by name ");
@@ -154,13 +161,13 @@ public class Driver {
 		case 1:
 			System.out.println("Enter the name that you would like to search: ");
 			String targetName = sc.next();
-			ArrayList<User> searchResult = database.searchUserByName(targetName);
+			searchResult = database.searchUserByName(targetName);
 			displayArrayListUser(searchResult);
 			
 			System.out.println("Enter the friend number ('1', '2', '3' etc.): ");
-			int index = sc.nextInt();
+			index = sc.nextInt();
 			
-			User selectedUser = getSelectedUser(searchResult, index);
+			selectedUser = getSelectedUser(searchResult, index);
 			selectedUser.displayUserProfile();
 			System.out.println("Enter the following options ('1' or '2'): ");
 			System.out.println("1. add this user");
@@ -169,7 +176,7 @@ public class Driver {
 			switch (choice) {
 			case 1:
 				//remove friend
-				database.addFriend();
+				database.addFriend(selectedUser);
 			case 2:
 				//go back
 			
@@ -177,13 +184,13 @@ public class Driver {
 		case 2:
 			System.out.println("Enter the interest that you would like to search: ");
 			String targetInterest = sc.next();
-			ArrayList<User> searchResult = database.searchUserByInterest(targetInterest);
+			searchResult = database.searchUserByInterest(targetInterest);
 			displayArrayListUser(searchResult);
 			
 			System.out.println("Enter the friend number ('1', '2', '3' etc.): ");
-			int index = sc.nextInt();
+			index = sc.nextInt();
 			
-			User selectedUser = getSelectedUser(searchResult, index);
+			selectedUser = getSelectedUser(searchResult, index);
 			selectedUser.displayUserProfile();
 			System.out.println("Enter the following options ('1' or '2'): ");
 			System.out.println("1. add this user");
@@ -192,7 +199,7 @@ public class Driver {
 			switch (choice) {
 			case 1:
 				//remove friend
-				database.addFriend();
+				database.addFriend(selectedUser);
 			case 2:
 				//go back
 			
@@ -202,9 +209,9 @@ public class Driver {
 			displayArrayListUser(recommendationResult);
 			
 			System.out.println("Enter the friend number ('1', '2', '3' etc.): ");
-			int index = sc.nextInt();
+			index = sc.nextInt();
 			
-			User selectedUser = getSelectedUser(searchResult, index);
+			selectedUser = getSelectedUser(recommendationResult, index);
 			selectedUser.displayUserProfile();
 			System.out.println("Enter the following options ('1' or '2'): ");
 			System.out.println("1. add this user");
@@ -213,7 +220,7 @@ public class Driver {
 			switch (choice) {
 			case 1:
 				//remove friend
-				database.addFriend();
+				database.addFriend(selectedUser);
 			case 2:
 				//go back
 			
@@ -225,11 +232,11 @@ public class Driver {
 	
 	
 	
-	public void displayArrayListUser(ArrayList<User> searchResultArrayListwithUsers) {
+	public static void displayArrayListUser(ArrayList<User> searchResultArrayListwithUsers) {
 		
 	}
 	
-	public User getSelectedUser(ArrayList<User> searchResultArrayListwithUsers, int index) {
+	public static User getSelectedUser(ArrayList<User> searchResultArrayListwithUsers, int index) {
 		return searchResultArrayListwithUsers.get(index);
 	}
 
