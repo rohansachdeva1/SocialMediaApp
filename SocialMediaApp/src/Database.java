@@ -5,8 +5,6 @@ import java.io.IOException;
 import java.util.*;
 //import java.util.LinkedList;
 
-import Collections.*;
-import Collections.LinkedList;
 /**
  * This class load all the data from the data file and put them in appropriate data structures.
  * The data will be called in other class do do things like search, add friends, etc.
@@ -131,10 +129,23 @@ public class Database {
 					interests.get(position).insert(newUser);
 					interestLinkedList.advanceIterator();
 				}
-
+				
+				// Add the newly created user to the BST that store all user, sorted by name
 				userBST.insert(newUser);
 				
-				// Added User objects to each User's friend list
+				// Add User objects to each User's friend list
+				for (int k = 1 ; k < userList.size() ; k++) { // here k is the index of userList, which is equal to user id
+					allUsers.get(k).positionIterator(); //position iterator to front of the User k's friends linkedlist
+					for (int l = 0 ; l < allUsers.get(numUsers).getLength(); l++) { // this loop is used to get the friends' id for each user
+						int friendToAddID = allUsers.get(k).getIterator(); //getting the ID of the friend
+						User friendToAddObj = userList.get(friendToAddID); //getting the user object of that friend using ID#
+						userList.get(k).addFriends(friendToAddObj); //adding that user object to k's friendlist
+						
+						//FIXME need to update the compare to method in User class, so BST can be sorted by name
+						
+						allUsers.get(k).advanceIterator(); //moving iterator to second node (second friend id)
+					}
+				}
 				
 				
 			}
