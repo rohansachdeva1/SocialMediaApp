@@ -157,7 +157,7 @@ public class Database {
 	}
 	
 	
-	public void createUser() {
+	public User createUser() {
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Please enter your first name: ");
 		String firstName = sc.next();
@@ -188,6 +188,7 @@ public class Database {
 		User newUser = new User(userID, firstName, lastName, userName, password, city, interestLinkedList);
 		allUsers.insert(newUser); //To graph team: Do you mean to insert UserId?
 		
+		return newUser;
 		
 	}
 	
