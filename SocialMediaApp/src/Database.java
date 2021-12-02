@@ -2,9 +2,8 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Scanner;
 import java.util.*;
+//import java.util.LinkedList;
 
 import Collections.*;
 
@@ -31,6 +30,9 @@ public class Database {
 
 	private static int numUsers; // holds number of users, used to create user id
 	
+	// Hash table team
+	private HashTable userHash; // a Hash table to store User Object, used for logging in
+	private HashTable interestsHash; // a hash table to store Interest Object, used for searching interests
 	
 	// to load the data from a file
 	public Database() {
@@ -48,11 +50,16 @@ public class Database {
 		allUsers = new ArrayList<>();
 		allUsers.add(new LinkedList<>()); // 0th linked list, not used
 		userList = new ArrayList<>();
-		userList.add(new User<>()); // 0th spot, not used // am i doing this right
+		userList.add(new User<>()); // 0th linked list, not used // am i doing this right
 		distance = new ArrayList<>();
-		distance.add(-1); // spot, not used
+		distance.add(-1); // 0th linked list, not used
 		interestScore = new ArrayList<>();
-		interestScore.add(-1); // 0th spot, not used
+		interestScore.add(-1); // 0th linked list, not used
+		
+		
+		// Hash team initialize data structure
+		userHash = new HashTable(45); //initialize a hashtable with size 3*15 
+		interestsHash = new HashTable(135); //initialize a hash table with size 3*3 interests*15 users
 		
 		try {
 			/* 
@@ -89,10 +96,10 @@ public class Database {
 				allUsers.add(new LinkedList<>());
 				numUsers++;
 
-				// Loop through user's friend list and add to database
+				// Loop through user's friend list and add to database //this is unfinished, don't rely on this for loop
 				for (int i = 0; i < numOfFriends; i++) {
 					int friendID = Integer.parseInt(br.readLine());
-					allUsers.get(numUsers).addLast(friendID);
+					allUsers.get(numUsers).addLast(friendID); //
 				}
 
 				// Create arraylist of interests
@@ -102,14 +109,13 @@ public class Database {
 				// Add each interest to user's individual linked list of interests
 				for (int j = 0; j < numOfInterests ; j++){
 					String interestName = br.readLine();
-					int interestID = hash(interestName); // HASH TEAM
-					/*
-					HASH TEAM: hash(interestName) above needs to return back the interest id
-					 */
+//					int interestID = hash(interestName); // HASH TEAM
+					int interestID = interestsHash.hash(interestName);
 
-					Interest tempInterestObj = new Interest(interestName);
+					Interest tempInterestObj = new Interest(interestName, interestID);
 					interestLinkedList.addLast(tempInterestObj); // add interest object to linked list
-
+					interestsHash.insert(tempInterestObj); // add interest object to hash table storing interest
+					
 					interests.get(interestID).insert(userID); // add userID to interest BST
 				} // NEEDS WORK creating interest ob
 
@@ -118,6 +124,7 @@ public class Database {
 				userList.add(newUser);
 				distance.add(-1);
 				interestScore.add(-1);
+				userHash.insert(newUser);
 
 				// Loop through interests linked list and add user to each interest in interest arraylist BST
 				interestLinkedList.positionIterator();
@@ -246,5 +253,10 @@ public class Database {
 		}
 
 		return answer;
+	}
+	
+	//Hash method
+	private int hash(T t) {
+		return Math.abs(t.hashCode()) % userHash.size();
 	}
 }
