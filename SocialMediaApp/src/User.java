@@ -32,7 +32,7 @@ public class User implements Comparable<User>{
 	}
 	
 	public User(int id, String firstName, String lastName, String userName, String password, String city,
-			LinkedList interests) {
+			LinkedList<Interest> interests) {
 		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;

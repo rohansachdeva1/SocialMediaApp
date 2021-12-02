@@ -8,6 +8,7 @@ package Collections;
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
 
+
 public class HashTable<T extends Comparable<T>> {
 
 	private ArrayList<LinkedList<T>> Table;
@@ -37,7 +38,7 @@ public class HashTable<T extends Comparable<T>> {
 	 * @param t the Object
 	 * @return the index in the Table
 	 */
-	private int hash(T t) {
+	public int hash(T t) {
 		return Math.abs(t.hashCode()) % Table.size();
 	}
 
@@ -80,25 +81,25 @@ public class HashTable<T extends Comparable<T>> {
 	 * @param t the element to search for
 	 * @return whether the specified element exists in the table
 	 */
-	public boolean search(T t) {
+	public T search(T t) {
 		if (t == null) {
-			return false;
+			return null;
 		}
 		int bucket = hash(t);
 		if (Table.get(bucket).getLength() == 0) {
-			return false;
+			return null;
 		}
 		Table.get(bucket).positionIterator();
 		for (int i = 0; i < Table.get(bucket).getLength(); i++) {
 			if (Table.get(bucket).getIterator().equals(t)) {
-				return true;
+				return Table.get(bucket).getIterator();
 			}
 			try {
 				Table.get(bucket).advanceIterator();
 			} catch (Exception e) {
 			}
 		}
-		return false;
+		return null;
 	}
 
 	/** Manipulation Procedures */
@@ -113,11 +114,27 @@ public class HashTable<T extends Comparable<T>> {
 		if (t == null) {
 			return;
 		}
-		int index = hash(t);
+		int index;
+		if (t.getClass() == User) {
+			index = hash(t.getUserName() + t.getPassword());
+		} else if (t.getClass() == Interest) {
+			index = hash(t.getName());
+		} else {
+			index = hash(t);
+		}
 		Table.get(index).addLast(t);
 		size++;
 	}
 
+	
+//	public void insert(Interest i) {
+//		if (i == null) {
+//			return;
+//		}
+//		int index = hash(i.getName());
+//		Table.get(index).addLast(i);
+//		size++;
+//	}
 	/**
 	 * removes the element t from the Table calls the hash method on the key to
 	 * determine correct placement has no effect if t is not in the Table
