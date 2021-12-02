@@ -274,10 +274,16 @@ public class Database {
 	 * ------------------------Not finished-----------------------------
 	 */
 	public ArrayList<User> searchUserByName(String targetName){
+		ArrayList<User> result;
 		return result;
 	}
 	
+	
+	/* 
+	 * ------------------------Not finished-----------------------------
+	 */
 	public ArrayList<User> searchUserByInterest(String targetInterest){
+		ArrayList<User> result;
 		return result;
 	}
 	

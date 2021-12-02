@@ -232,8 +232,11 @@ public class Driver {
 	
 	
 	
-	public static void displayArrayListUser(ArrayList<User> searchResultArrayListwithUsers) {
-		
+	public static void displayArrayListUser(ArrayList<User> inputArrayList) {
+		for (int i = 0; i < inputArrayList.size(); i++) {
+			User userFromCurrentIndex = inputArrayList.get(i);
+			System.out.println(i + ": " + userFromCurrentIndex.getFirstName() + " " + userFromCurrentIndex.getLastName());
+		}
 	}
 	
 	public static User getSelectedUser(ArrayList<User> searchResultArrayListwithUsers, int index) {

@@ -114,6 +114,11 @@ public class User implements Comparable<User>{
 		this.friends.insert(friend);
 	}
 	
+	
+	/*
+	 * ---------------------------------------NOT COMPLETE---------------------------------------
+	 * Need to print friends and interests
+	 */
 	public void displayUserProfile() {
 		System.out.println("Name: " + firstName + " " + lastName);
 		System.out.println("City: " + city);
@@ -122,21 +127,27 @@ public class User implements Comparable<User>{
 	}
 	
 	/*
-	 * should display in:
-	 * 1. Elon Musk
-	 * 2. Bill Gates
-	 * 3. etc.
+	 * ---------------------------------------NOT COMPLETE---------------------------------------
 	 */
 	public ArrayList<User> getSortedFriendArrayList() {
-		return sortedFriendArrayList;
+		ArrayList<User> result;
+		return result;
 		
 	}
 	
+	/*
+	 * ---------------------------------------NOT COMPLETE---------------------------------------
+	 */
 	public ArrayList<User> searchFromFriendList(String targetName) {
+		ArrayList<User> result;
 		return result;
 	}
 	
+	/*
+	 * ---------------------------------------NOT COMPLETE---------------------------------------
+	 */
 	public ArrayList<User> getRecommendation() {
+		ArrayList<User> result;
 		return result;
 	}
 	
