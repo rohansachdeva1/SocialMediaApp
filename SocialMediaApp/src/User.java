@@ -113,6 +113,23 @@ public class User implements Comparable<User>{
 		this.friends.insert(friend);
 	}
 	
+	public void displayUserProfile() {
+		System.out.println("Name: " + firstName + " " + lastName);
+		System.out.println("City: " + city);
+		System.out.println("Friends: ");
+		System.out.println("Interests: ");
+	}
+	
+	/*
+	 * should display in:
+	 * 1. Elon Musk
+	 * 2. Bill Gates
+	 * 3. etc.
+	 */
+	public void displaySortedFriendList() {
+		
+	}
+	
 
 	@Override
 	public int compareTo(User o) {

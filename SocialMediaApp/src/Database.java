@@ -270,6 +270,13 @@ public class Database {
 		return answer;
 	}
 	
+	/* Needs everyone's input on this
+	 * 
+	 */
+	public void removeFriend(User toBeRemovedUser) {
+		
+	}
+	
 	//Hash method
 	private int hash(T t) {
 		return Math.abs(t.hashCode()) % userHash.size();
