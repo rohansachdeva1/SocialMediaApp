@@ -1,4 +1,3 @@
-package Collections;
 /**
  * BST.java
  * @author Sze Chung Wong
