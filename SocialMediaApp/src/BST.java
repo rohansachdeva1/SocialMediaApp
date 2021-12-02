@@ -6,6 +6,7 @@
  */
 
 
+import java.util.ArrayList;
 import java.util.NoSuchElementException;
 
 public class BST<T extends Comparable<T>> {
@@ -487,4 +488,37 @@ public class BST<T extends Comparable<T>> {
 	    }
 		return true;
 	}
+	
+	
+	/**
+     * Returns an ArrayList containing the sorted data
+     * in order
+     * @return an ArrayList of data in order
+     */
+    public ArrayList<T> inOrderData() {
+    	ArrayList<T> result = new ArrayList<T>();
+    	inOrderData(root, result);
+        return result;
+    }
+    
+    /**
+     * Helper method to inOrderData
+     * Inserts the data in order into a ArrayList
+     * @param node the current Node
+     * @param inOrder an ArrayList containing the data
+     */
+    private void inOrderData(Node node, ArrayList<T> inOrder) {
+    	if (node == null) {
+    		return;
+    	}
+    	else {
+    		inOrderData(node.left, inOrder);
+    		inOrder.add(node.data);
+    		inOrderData(node.right, inOrder);
+    	}
+    }
+	
+	
+	
+	
 }

@@ -275,11 +275,19 @@ public class Database {
 		return answer;
 	}
 	
-	/* Jo / Steven, BST
-	 * ------------------------Not finished-----------------------------
+	/* 
+	 * ------------------------Complete-----------------------------
 	 */
 	public ArrayList<User> searchUserByName(String targetName){
-		ArrayList<User> result;
+		ArrayList<User> result = userBST.inOrderData();
+		for (int i = 0; i < result.size(); i++) {
+			User userInIndex = result.get(i);
+			String userNameInUpperCase = userInIndex.getFirstName().toUpperCase() + ' ' + userInIndex.getFirstName().toUpperCase();
+			String targetNameInUpperCase = targetName.toUpperCase();
+			if (userNameInUpperCase.contains(targetNameInUpperCase)) {
+				result.add(userInIndex);
+			}
+		}
 		return result;
 	}
 	

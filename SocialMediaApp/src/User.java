@@ -127,19 +127,28 @@ public class User implements Comparable<User>{
 	}
 	
 	/*
-	 * ---------------------------------------NOT COMPLETE---------------------------------------
+	 * ---------------------------------------Complete---------------------------------------
+	 * inOrderData() method is added to BST class
 	 */
 	public ArrayList<User> getSortedFriendArrayList() {
-		ArrayList<User> result;
+		ArrayList<User> result = friends.inOrderData();
 		return result;
 		
 	}
 	
 	/*
-	 * ---------------------------------------NOT COMPLETE---------------------------------------
+	 * ---------------------------------------COMPLETE---------------------------------------
 	 */
-	public ArrayList<User> searchFromFriendList(String targetName) {
-		ArrayList<User> result;
+	public ArrayList<User> searchFromFriendList(String targetName) { //would be more efficient if we use hashtable, but I will do it with arraylist since efficiency isn't required.
+		ArrayList<User> result = getSortedFriendArrayList();
+		for (int i = 0; i < result.size(); i++) {
+			User userInIndex = result.get(i);
+			String userNameInUpperCase = userInIndex.getFirstName().toUpperCase() + ' ' + userInIndex.getFirstName().toUpperCase();
+			String targetNameInUpperCase = targetName.toUpperCase();
+			if (userNameInUpperCase.contains(targetNameInUpperCase)) {
+				result.add(userInIndex);
+			}
+		}
 		return result;
 	}
 	
