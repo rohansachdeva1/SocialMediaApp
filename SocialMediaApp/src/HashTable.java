@@ -40,12 +40,6 @@ public class HashTable<T extends Comparable<T>> {
 	public int hash(T t) {
 		return Math.abs(t.hashCode()) % Table.size();
 	}
-	public int hash(Interest i) {
-		return Math.abs(i.getName().hashCode()) % Table.size();
-	}
-	public int hash(User u) {
-		return Math.abs((u.getUserName() + u.getPassword()).hashCode()) % Table.size();
-	}
 
 	/**
 	 * counts the number of elements at this index

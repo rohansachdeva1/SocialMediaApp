@@ -167,18 +167,20 @@ public class User implements Comparable<User>{
 		return result;
 	}
 	
-
+	@Override
+	public int hashCode() {
+		String key = getUserName() + getPassword();
+		int sum = 0;
+		for (int i = 0; i < key.length(); i++) {
+			sum += (int) key.charAt(i);
+		}
+		return sum;
+	}
+	
 	@Override
 	public int compareTo(User o) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-    
-    
-    
-    
-    
-    
-    
 }
 

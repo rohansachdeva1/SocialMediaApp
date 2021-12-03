@@ -26,6 +26,16 @@ public class Interest implements Comparable<Interest>{
 	}
 
 	@Override
+	public int hashCode() {
+		String key = getName() + getId();
+		int sum = 0;
+		for (int i = 0; i < key.length(); i++) {
+			sum += (int) key.charAt(i);
+		}
+		return sum;
+	}
+
+	@Override
 	public int compareTo(Interest o) {
 		// TODO Auto-generated method stub
 		return 0;
