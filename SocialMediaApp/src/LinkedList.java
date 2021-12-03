@@ -431,7 +431,7 @@ public class LinkedList<T> {
         return false;
     }
 
-    **
+    /**
     * Points the iterator at first
     * and then advances it to the
     * specified index
