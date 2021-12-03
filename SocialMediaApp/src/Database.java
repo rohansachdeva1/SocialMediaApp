@@ -306,26 +306,32 @@ public class Database {
 	 * ------------------------Not finished-----------------------------
 	 */
 	public void removeFriend(User toBeRemovedUser) {
+		LinkedList<Integer> userLinkedList = allUsers.get(this.getId()); 
+		LinkedList<Integer> friendLinkedList = allUsers.get(toBeRemovedUser.getId()); 
+
 		// removing friend from user in friend graph
 		// move iterator to spot, then remove
-		allUsers.get(this.getId()).iteratorToIndex(allUsers.get(this.getId()).linearSearch(toBeRemovedUser.getId()));
-		allUsers.get(this.getId()).removeIterator();
+		userLinkedList.iteratorToIndex(userLinkedList.linearSearch(toBeRemovedUser.getId()));
+		userLinkedList.removeIterator();
 		this.getFriends().remove(toBeAddeddUser); // remove friend from user's personal friend BST
 
 		// removing user from friend in friend graph
 		// move iterator to spot, then remove
-		allUsers.get(toBeRemovedUser.getId()).iteratorToIndex(allUsers.get(toBeRemovedUser.getId()).linearSearch(this.getId()));
-		allUsers.get(toBeRemovedUser.getId()).removeIterator();
-		toBeAddedUser.getFriends().remove(toBeAddeddUser); // remove user from friend's personal friend BST
+		friendLinkedList.iteratorToIndex(friendLinkedList.linearSearch(this.getId()));
+		friendLinkedList.removeIterator();
+		toBeAddedUser.getFriends().remove(this); // remove user from friend's personal friend BST
 	}
 	
 	/* Needs everyone's input on this
 	 * ------------------------Not finished-----------------------------
 	 */
 	public void addFriend(User toBeAddeddUser) {
+		LinkedList<Integer> userLinkedList = allUsers.get(this.getId()); 
+		LinkedList<Integer> friendLinkedList = allUsers.get(toBeAddeddUser.getId()); 
+
 		// Graph Team updating all users graph (storing friend connections)
-		allUsers.get(this.getId()).addLast(toBeAddeddUser.getId()); // connection 1 to 2
-		allUsers.get(toBeAddeddUser.getId()).addLast(this.getId()); // connection 2 to 1
+		userLinkedList.addLast(toBeAddeddUser.getId()); // connection 1 to 2
+		friendLinkedList.addLast(this.getId()); // connection 2 to 1
 		
 		// update each user object's personal friend BST
 		this.getFriends().insert(toBeAddeddUser);
