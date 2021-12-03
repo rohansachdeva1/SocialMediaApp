@@ -159,6 +159,7 @@ public class User implements Comparable<User>{
 		return result;
 	}
 	
+	// possibly pass in database as a parameter from the driver and then call the database method on it
 	public ArrayList<User> getRecommendation() {
 		ArrayList<User> result = Database.getRecommendation(this.getId());
 		return result;
