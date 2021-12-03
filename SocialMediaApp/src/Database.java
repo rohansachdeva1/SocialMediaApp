@@ -29,8 +29,8 @@ public class Database {
 	private static int numUsers; // holds number of users, used to create user id
 	
 	// Hash table team
-	private HashTable<User> userHash; // a Hash table to store User Object, used for logging in
-	private HashTable<Interest> interestsHash; // a hash table to store Interest Object, used for searching interests
+	private HashTable userHash; // a Hash table to store User Object, used for logging in
+	private HashTable interestsHash; // a hash table to store Interest Object, used for searching interests
 	
 	// to load the data from a file
 	public Database() {
@@ -56,8 +56,8 @@ public class Database {
 		
 		
 		// Hash team initialize data structure
-		userHash = new HashTable<>(45); //initialize a hashtable with size 3*15 
-		interestsHash = new HashTable<>(135); //initialize a hash table with size 3*3 interests*15 users
+		userHash = new HashTable(45); //initialize a hashtable with size 3*15 
+		interestsHash = new HashTable(135); //initialize a hash table with size 3*3 interests*15 users
 		
 		try {
 			/* 
@@ -106,8 +106,9 @@ public class Database {
 				for (int j = 0; j < numOfInterests ; j++){
 					String interestName = br.readLine();
 //					int interestID = hash(interestName); // HASH TEAM
-					Interest tempInterestObj = new Interest(interestName, interestName.hashCode());
-					int interestHashID = interestsHash.hash(tempInterestObj);
+					int interestID = interestsHash.hash(interestName);
+
+					Interest tempInterestObj = new Interest(interestName, interestID);
 					interestLinkedList.addLast(tempInterestObj); // add interest object to linked list
 					interestsHash.insert(tempInterestObj); // add interest object to hash table storing interest
 					
@@ -292,56 +293,49 @@ public class Database {
 	
 	
 	/* 
-	 * ------------------------Needs testing-----------------------------
+	 * ------------------------Not finished-----------------------------
 	 */
-	public ArrayList<User> searchUserByInterest(String targetInterestName){
-		ArrayList<User> result = new ArrayList<>();
-		for (int i = 0; i < result.size(); i++) {
-			User userInIndex = result.get(i);
-			Interest targetInterest = new Interest(targetInterestName, targetInterestName.hashCode());
-			LinkedList<Interest> userInterests = userInIndex.getInterests();
-			if (userInterests.linearSearch(targetInterest) != -1) {
-				result.add(userInIndex);
-			};
-		}
+	public ArrayList<User> searchUserByInterest(String targetInterest){
+		ArrayList<User> result;
 		return result;
 	}
+	
 	
 	
 	/* Needs everyone's input on this
 	 * ------------------------Not finished-----------------------------
 	 */
-	public void removeFriend(User toBeRemovedUser) {
-		LinkedList<Integer> userLinkedList = allUsers.get(this.getId()); 
+	public void removeFriend(User originalUser, User toBeRemovedUser) {
+		LinkedList<Integer> userLinkedList = allUsers.get(originalUser.getId()); 
 		LinkedList<Integer> friendLinkedList = allUsers.get(toBeRemovedUser.getId()); 
 
 		// removing friend from user in friend graph
 		// move iterator to spot, then remove
 		userLinkedList.iteratorToIndex(userLinkedList.linearSearch(toBeRemovedUser.getId()));
 		userLinkedList.removeIterator();
-		this.getFriends().remove(toBeAddeddUser); // remove friend from user's personal friend BST
+		originalUser.getFriends().remove(toBeAddedUser); // remove friend from user's personal friend BST
 
 		// removing user from friend in friend graph
 		// move iterator to spot, then remove
-		friendLinkedList.iteratorToIndex(friendLinkedList.linearSearch(this.getId()));
+		friendLinkedList.iteratorToIndex(friendLinkedList.linearSearch(originalUser.getId()));
 		friendLinkedList.removeIterator();
-		toBeAddedUser.getFriends().remove(this); // remove user from friend's personal friend BST
+		toBeAddedUser.getFriends().remove(originalUser); // remove user from friend's personal friend BST
 	}
 	
 	/* Needs everyone's input on this
 	 * ------------------------Not finished-----------------------------
 	 */
-	public void addFriend(User toBeAddeddUser) {
-		LinkedList<Integer> userLinkedList = allUsers.get(this.getId()); 
-		LinkedList<Integer> friendLinkedList = allUsers.get(toBeAddeddUser.getId()); 
+	public void addFriend(User originalUser, User toBeAddedUser) {
+		LinkedList<Integer> userLinkedList = allUsers.get(originalUser.getId()); 
+		LinkedList<Integer> friendLinkedList = allUsers.get(toBeAddedUser.getId()); 
 
 		// Graph Team updating all users graph (storing friend connections)
-		userLinkedList.addLast(toBeAddeddUser.getId()); // connection 1 to 2
-		friendLinkedList.addLast(this.getId()); // connection 2 to 1
+		userLinkedList.addLast(toBeAddedUser.getId()); // connection 1 to 2
+		friendLinkedList.addLast(originalUser.getId()); // connection 2 to 1
 		
 		// update each user object's personal friend BST
-		this.getFriends().insert(toBeAddeddUser);
-		toBeAddedUser.getFriends().insert(this);
+		originalUser.getFriends().insert(toBeAddedUser);
+		toBeAddedUser.getFriends().insert(originalUser);
 	}
 
 	public User login(String username, String password) {

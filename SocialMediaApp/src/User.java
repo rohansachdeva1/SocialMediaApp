@@ -160,27 +160,33 @@ public class User implements Comparable<User>{
 	}
 	
 	/*
-	 * ---------------------------------------NOT COMPLETE---------------------------------------
+	 * --------------------------------------- COMPLETE---------------------------------------
 	 */
 	public ArrayList<User> getRecommendation() {
-		ArrayList<User> result;
+		ArrayList<User> result = Database.getRecommendation(this.getId());
 		return result;
 	}
-	
-	@Override
-	public int hashCode() {
-		String key = getUserName() + getPassword();
-		int sum = 0;
-		for (int i = 0; i < key.length(); i++) {
-			sum += (int) key.charAt(i);
-		}
-		return sum;
+
+	public void addFriend(User toBeAddedUser) {
+		Database.addFriend(this, toBeAddedUser);
+	}
+
+	public void removeFriend(User toBeRemovedUser) {
+		Database.removeFriend(this, toBeRemovedUser);
 	}
 	
+
 	@Override
 	public int compareTo(User o) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+    
+    
+    
+    
+    
+    
+    
 }
 
