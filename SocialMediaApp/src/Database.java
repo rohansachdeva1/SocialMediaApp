@@ -260,7 +260,7 @@ public class Database {
 	}
 
 	// Recommendation Method
-	public ArrayList<User> getRecommendation(int source) {
+	public static ArrayList<User> getRecommendation(int source) {
 		ArrayList<User> answer = new ArrayList<>(); // linked list of users in order of final recommendation
 		allUsers.BFS(source); // call BFS on user graph, update distance and interestScore arraylists
 
@@ -305,7 +305,7 @@ public class Database {
 	/* Needs everyone's input on this
 	 * ------------------------Not finished-----------------------------
 	 */
-	public void removeFriend(User originalUser, User toBeRemovedUser) {
+	public static void removeFriend(User originalUser, User toBeRemovedUser) {
 		LinkedList<Integer> userLinkedList = allUsers.get(originalUser.getId()); 
 		LinkedList<Integer> friendLinkedList = allUsers.get(toBeRemovedUser.getId()); 
 
@@ -325,7 +325,7 @@ public class Database {
 	/* Needs everyone's input on this
 	 * ------------------------Not finished-----------------------------
 	 */
-	public void addFriend(User originalUser, User toBeAddedUser) {
+	public static void addFriend(User originalUser, User toBeAddedUser) {
 		LinkedList<Integer> userLinkedList = allUsers.get(originalUser.getId()); 
 		LinkedList<Integer> friendLinkedList = allUsers.get(toBeAddedUser.getId()); 
 
