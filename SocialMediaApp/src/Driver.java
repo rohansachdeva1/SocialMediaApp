@@ -24,6 +24,7 @@ public class Driver {
 			System.out.println("2: Create Account");
 			System.out.println("3: Exit");
 			choice = sc.nextInt();
+			sc.nextLine(); //to avoid skipped nextLine() command due to nextInt() doesn't read newline character
 			switch(choice) {
 			case 1:
 				/*
@@ -31,7 +32,19 @@ public class Driver {
 				 * Please also return the logged in user
 				 * might want to return to the main menu if login fail 
 				 */
-				currentUser = database.login();
+				System.out.println("Login: ");
+				System.out.println("Please enter your username: ");
+				String username = sc.nextLine();
+				System.out.println("Please enter your password: ");
+				String password = sc.nextLine();
+				currentUser = database.login(username, password);
+				if (currentUser == null) {
+					System.out.println("username or password not found.");
+					System.out.println("Please try login again or create an account\n");
+				} else {
+					loginStatus = true;
+				}
+				break;
 			case 2:
 				currentUser = database.createUser(); //should create a new user, then this becomes the current user.
 				loginStatus = true;

@@ -40,6 +40,12 @@ public class HashTable<T extends Comparable<T>> {
 	public int hash(T t) {
 		return Math.abs(t.hashCode()) % Table.size();
 	}
+	public int hash(Interest i) {
+		return Math.abs(i.getName().hashCode()) % Table.size();
+	}
+	public int hash(User u) {
+		return Math.abs((u.getUserName() + u.getPassword()).hashCode()) % Table.size();
+	}
 
 	/**
 	 * counts the number of elements at this index
@@ -100,6 +106,27 @@ public class HashTable<T extends Comparable<T>> {
 		}
 		return null;
 	}
+	public T searchUser(User u) {
+		if (u == null) {
+			return null;
+		}
+		int bucket = hash(u);
+		if (Table.get(bucket).getLength() == 0) {
+			return null;
+		}
+		Table.get(bucket).positionIterator();
+		for (int i = 0; i < Table.get(bucket).getLength(); i++) {
+			User tempU = (User)Table.get(bucket).getIterator();
+			if (tempU.getUserName() == u.getUserName() && tempU.getPassword() == u.getPassword()) {
+				return Table.get(bucket).getIterator();
+			}
+			try {
+				Table.get(bucket).advanceIterator();
+			} catch (Exception e) {
+			}
+		}
+		return null;
+	}
 
 	/** Manipulation Procedures */
 
@@ -113,27 +140,11 @@ public class HashTable<T extends Comparable<T>> {
 		if (t == null) {
 			return;
 		}
-		int index;
-		if (t.getClass() == User) {
-			index = hash(t.getUserName() + t.getPassword());
-		} else if (t.getClass() == Interest) {
-			index = hash(t.getName());
-		} else {
-			index = hash(t);
-		}
+		int index = hash(t);
 		Table.get(index).addLast(t);
 		size++;
 	}
 
-	
-//	public void insert(Interest i) {
-//		if (i == null) {
-//			return;
-//		}
-//		int index = hash(i.getName());
-//		Table.get(index).addLast(i);
-//		size++;
-//	}
 	/**
 	 * removes the element t from the Table calls the hash method on the key to
 	 * determine correct placement has no effect if t is not in the Table

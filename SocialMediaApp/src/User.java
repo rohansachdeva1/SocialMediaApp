@@ -31,6 +31,12 @@ public class User implements Comparable<User>{
 
 	}
 	
+	public User(String userName, String password) {
+		super();
+		this.userName = userName;
+		this.password = password;
+	}
+	
 	public User(int id, String firstName, String lastName, String userName, String password, String city,
 			LinkedList<Interest> interests) {
 		this.id = id;

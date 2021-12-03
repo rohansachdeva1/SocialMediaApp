@@ -315,11 +315,9 @@ public class Database {
 	public void addFriend(User toBeAddeddUser) {
 		
 	}
-	
-	
-	
-	//Hash method
-	private int hash(T t) {
-		return Math.abs(t.hashCode()) % userHash.size();
+
+	public User login(String username, String password) {
+		User tempU = new User(username, password);
+		return (User) userHash.searchUser(tempU);
 	}
 }
