@@ -160,7 +160,7 @@ public class User implements Comparable<User>{
 	}
 	
 	/*
-	 * --------------------------------------- COMPLETE---------------------------------------
+	 * need to confirm that I am calling the database methods correctly here, not too sure
 	 */
 	public ArrayList<User> getRecommendation() {
 		ArrayList<User> result = Database.getRecommendation(this.getId());
