@@ -260,14 +260,14 @@ public class Database {
 	}
 
 	// Recommendation Method
-	public LinkedList recommendFriends(int source) {
-		LinkedList<User> answer = new LinkedList<>(); // linked list of users in order of final recommendation
+	public ArrayList<User> getRecommendation(int source) {
+		ArrayList<User> answer = new ArrayList<>(); // linked list of users in order of final recommendation
 		allUsers.BFS(source); // call BFS on user graph, update distance and interestScore arraylists
 
 		// add eligible users to linked list in order of most interests shared
 		int highestIndex = calcHighestIndex(interestScore);
 		while (highestIndex != -1) {
-			answer.addLast(userList.get(highestIndex));
+			answer.add(userList.get(highestIndex)); // change here
 			interestScore.set(highestIndex, -1);
 			highestIndex = calcHighestIndex(interestScore);
 		}
