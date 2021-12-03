@@ -430,4 +430,55 @@ public class LinkedList<T> {
         }
         return false;
     }
+
+    **
+    * Points the iterator at first
+    * and then advances it to the
+    * specified index
+    * @param index the index where
+    * the iterator should be placed
+    * @precondition 0 < index <= length
+    * @throws IndexOutOfBoundsException
+    * when precondition is violated
+    */
+    public void iteratorToIndex(int index) throws IndexOutOfBoundsException{
+        //if index is not in bounds, throw IOBE
+        if (index < 0 || index > length) {
+            throw new IndexOutOfBoundsException();
+        }
+        positionIterator(); //set position iterator
+        
+        //iterate through to index
+        for (int i = 0; i < index; i++) { 
+            advanceIterator();
+        }
+    }
+    
+    /**
+     * Searches the List for the specified
+     * value using the linear  search algorithm
+     * @param value the value to search for
+     * @return the location of value in the
+     * List or -1 to indicate not found
+     * Note that if the List is empty we will
+     * consider the element to be not found
+     * post: position of the iterator remains
+     * unchanged
+     */
+    public int linearSearch(T value) {
+        Node looper = first; //set the looper to the first location
+        int count = 0; //set count to zero
+
+        while (looper != null) { //iterate through list
+            //if the data at the looper equals the passed in value, return the location 'count'
+        	if (looper.data.equals(value) == true) {
+                return count;
+            }
+        	// advance looper and increment count 
+            looper = looper.next;
+            count++;
+        }
+        //return -1 if value not found
+        return -1;
+    }
 }

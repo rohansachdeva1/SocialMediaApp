@@ -105,6 +105,7 @@ public class User implements Comparable<User>{
 	public BST<User> getFriends() {
 		return friends;
 	}
+
 	public void setFriends(BST<User> friends) {
 		this.friends = friends;
 	}

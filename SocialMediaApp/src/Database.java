@@ -306,14 +306,30 @@ public class Database {
 	 * ------------------------Not finished-----------------------------
 	 */
 	public void removeFriend(User toBeRemovedUser) {
-		
+		// removing friend from user in friend graph
+		// move iterator to spot, then remove
+		allUsers.get(this.getId()).iteratorToIndex(allUsers.get(this.getId()).linearSearch(toBeRemovedUser.getId()));
+		allUsers.get(this.getId()).removeIterator();
+		this.getFriends().remove(toBeAddeddUser); // remove friend from user's personal friend BST
+
+		// removing user from friend in friend graph
+		// move iterator to spot, then remove
+		allUsers.get(toBeRemovedUser.getId()).iteratorToIndex(allUsers.get(toBeRemovedUser.getId()).linearSearch(this.getId()));
+		allUsers.get(toBeRemovedUser.getId()).removeIterator();
+		toBeAddedUser.getFriends().remove(toBeAddeddUser); // remove user from friend's personal friend BST
 	}
 	
 	/* Needs everyone's input on this
 	 * ------------------------Not finished-----------------------------
 	 */
 	public void addFriend(User toBeAddeddUser) {
+		// Graph Team updating all users graph (storing friend connections)
+		allUsers.get(this.getId()).addLast(toBeAddeddUser.getId()); // connection 1 to 2
+		allUsers.get(toBeAddeddUser.getId()).addLast(this.getId()); // connection 2 to 1
 		
+		// update each user object's personal friend BST
+		this.getFriends().insert(toBeAddeddUser);
+		toBeAddedUser.getFriends().insert(this);
 	}
 
 	public User login(String username, String password) {
