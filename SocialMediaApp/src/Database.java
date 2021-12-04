@@ -194,11 +194,6 @@ public class Database {
 		return newUser;
 	}
 	
-	public ArrayList searchByNameReturnListOfResult(String nameKeyword) {
-		ArrayList searchResult = new ArrayList();
-		return searchResult;
-	}
-	
 	//save file when we call the quit method
 	public static void writeToFile() {
 		String currentFileContents = getCurrentFileContentsAsString();
