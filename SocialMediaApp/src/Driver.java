@@ -89,7 +89,7 @@ public class Driver {
 			Scanner sc = new Scanner(System.in);
 			System.out.println("Enter the following options ('1', '2' or '3'): ");
 			System.out.println("1. View sorted friend list");
-			System.out.println("2. Search friends their their names");
+			System.out.println("2. Search friends by their names");
 			System.out.println("3. Go back to the previous page");
 			choice = Integer.parseInt(sc.nextLine());
 			switch (choice) {
@@ -168,7 +168,7 @@ public class Driver {
 			case 1:
 				System.out.println("Enter the name that you would like to search: ");
 				String targetName = sc.nextLine();
-				searchResult = database.searchUserByName(targetName);
+				searchResult = database.searchUserByName(targetName, currentUser);
 				System.out.println("search result" + searchResult.toString());
 				displayArrayListUser(searchResult);
 				
