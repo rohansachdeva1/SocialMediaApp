@@ -69,6 +69,7 @@ public class Driver {
 				
 			}
 		}
+		sc.close();
 
 	}
 	
@@ -105,7 +106,7 @@ public class Driver {
 				switch (choice) {
 				case 1:
 					//remove friend
-					database.removeFriend(selectedUser);
+					currentUser.removeFriend(selectedUser);
 				case 2:
 					//go back
 				}
@@ -129,7 +130,7 @@ public class Driver {
 				switch (choice) {
 				case 1:
 					//remove friend
-					database.removeFriend(selectedUser);
+					currentUser.removeFriend(selectedUser);
 				case 2:
 					//go back
 				}
@@ -138,7 +139,9 @@ public class Driver {
 				exitStatus = true;
 				
 			}
+			sc.close();
 		}
+		
 	}
 	
 	/* Helper method to add friends outside of current user's network
@@ -178,7 +181,7 @@ public class Driver {
 				switch (choice) {
 				case 1:
 					//remove friend
-					database.addFriend(selectedUser);
+					currentUser.addFriend(selectedUser);
 				case 2:
 					//go back
 				
@@ -201,7 +204,7 @@ public class Driver {
 				switch (choice) {
 				case 1:
 					//remove friend
-					database.addFriend(selectedUser);
+					currentUser.addFriend(selectedUser);
 				case 2:
 					//go back
 				
@@ -222,13 +225,14 @@ public class Driver {
 				switch (choice) {
 				case 1:
 					//remove friend
-					database.addFriend(selectedUser);
+					currentUser.addFriend(selectedUser);
 				case 2:
 					//go back
 				
 				}
 				
 			}
+			sc.close();
 		}
 	}
 	
