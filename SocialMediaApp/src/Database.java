@@ -30,7 +30,7 @@ public class Database {
 	
 	// Hash table team
 	private HashTable<User> userHash; // a Hash table to store User Object, used for logging in
-	private HashTable<Interest> interestsHash; // a hash table to store Interest Object, used for searching interests
+	private HashTable<Interest> interestHash; // a hash table to store Interest Object, used for searching interests
 	
 	// to load the data from a file
 	public Database() {
@@ -42,8 +42,10 @@ public class Database {
 
 		// initialize data structures and create 0th place
 		interests = new ArrayList<>();
-		interests.add(new BST<>()); // 0th linked list, not used
-
+		for (int i = 0; i < 135; i++) {
+			interests.add(new BST<>()); // 0th linked list, not used
+		} // initialize first 135(same as in interestHash) so that won't get out of bound error
+		
 		// Graph Team initialize data structures and create 0th place
 		allUsers = new ArrayList<>();
 		allUsers.add(new LinkedList<Integer>()); // 0th linked list, not used
@@ -56,8 +58,8 @@ public class Database {
 		
 		
 		// Hash team initialize data structure
-		userHash = new HashTable<>(45); //initialize a hashtable with size 3*15 
-		interestsHash = new HashTable<>(135); //initialize a hash table with size 3*3 interests*15 users
+		userHash = new HashTable<>(45); //initialize a hash table with size 3*15 
+		interestHash = new HashTable<>(135); //initialize a hash table with size 3*3 interests*15 users
 		
 		try {
 			/* 
@@ -105,10 +107,10 @@ public class Database {
 				// Add each interest to user's individual linked list of interests
 				for (int j = 0; j < numOfInterests ; j++) {
 					String interestName = br.readLine();				
-					int interestID = (interestName.hashCode() % interestsHash.getSize());
+					int interestID = interestHash.hash(interestName);
 					Interest tempInterestObj = new Interest(interestName, interestID);
 					interestLinkedList.addLast(tempInterestObj); // add interest object to linked list
-					interestsHash.insert(tempInterestObj); // add interest object to hash table storing interest
+					interestHash.insert(tempInterestObj); // add interest object to hash table storing interest
 					interests.get(interestID).insert(userID); // add userID to interest BST
 				} // NEEDS WORK creating interest ob
 				// Create new user from input data -- with empty friendlist
@@ -291,12 +293,20 @@ public class Database {
 	 * ------------------------Needs testing-----------------------------
 	 */
 	public ArrayList<User> searchUserByInterest(String targetInterestName){
-		
-		Interest tmpInterest = new Interest(targetInterestName, targetInterestName.hashCode() % interestsHash.getSize());
-		if (interestsHash.search(tmpInterest) != null) {
-			interestsHash.search(tmpInterest).getId();
-		};
-		return result;
+//		Interest tmpInterest = new Interest(targetInterestName, interestHash.hash(targetInterestName));
+//		Interest resultInterest = interestHash.searchInterest(tmpInterest);
+//		if (resultInterest != null) { 
+//			int index = resultInterest.getId();
+//			return interests.get(index).inOrderData();
+//		} else { 
+//			return null;
+//		}
+		BST temp = interests.get(interestHash.hash(targetInterestName));
+		if (temp != null) {
+			return temp.inOrderData();
+		} else {
+			return null;
+		}
 	}
 	
 	/* Needs everyone's input on this

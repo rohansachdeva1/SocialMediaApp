@@ -11,7 +11,7 @@ public class Driver {
 	static Database database;
 	static User currentUser;
 
-	public static void main(String[] args) {
+	public static void main(String[] args) {		
 		boolean loginStatus = false;
 		int choice;
 		Scanner sc = new Scanner(System.in);

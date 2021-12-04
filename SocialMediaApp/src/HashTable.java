@@ -40,7 +40,9 @@ public class HashTable<T extends Comparable<T>> {
 	public int hash(T t) {
 		return Math.abs(t.hashCode()) % Table.size();
 	}
-	
+	public int hash(String s) {
+		return Math.abs(s.hashCode()) % Table.size();
+	}
 	public int hash(Interest i) {
 		return Math.abs(i.getName().hashCode()) % Table.size();
 	}
@@ -128,6 +130,27 @@ public class HashTable<T extends Comparable<T>> {
 		}
 		return null;
 	}
+//	public T searchInterest(Interest i) {
+//		if (i == null) {
+//			return null;
+//		}
+//		int bucket = hash(i);
+//		if (Table.get(bucket).getLength() == 0) {
+//			return null;
+//		}
+//		Table.get(bucket).positionIterator();
+//		for (int j = 0; j < Table.get(bucket).getLength(); j++) {
+//			Interest tempI = (Interest)Table.get(bucket).getIterator();
+//			if (tempI.getName() == i.getName()) {
+//				return Table.get(bucket).getIterator();
+//			}
+//			try {
+//				Table.get(bucket).advanceIterator();
+//			} catch (Exception e) {
+//			}
+//		}
+//		return null;
+//	}
 
 	/** Manipulation Procedures */
 
