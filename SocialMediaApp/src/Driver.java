@@ -189,7 +189,7 @@ public class Driver {
 			case 2:
 				System.out.println("Enter the interest that you would like to search: ");
 				String targetInterest = sc.next();
-				searchResult = database.searchUserByInterest(targetInterest);
+				searchResult = database.searchUserByInterest(targetInterest, currentUser);
 				displayArrayListUser(searchResult);
 				
 				System.out.println("Enter the friend number ('1', '2', '3' etc.): ");
