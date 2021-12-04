@@ -312,8 +312,8 @@ public class Database {
 		return resultList;
 	}
 	
-	/* Needs everyone's input on this
-	 * ------------------------Not finished-----------------------------
+	/* 
+	 * ------------------------Finished-----------------------------
 	 */
 	public static void removeFriend(User originalUser, User toBeRemovedUser) {
 		LinkedList<Integer> userLinkedList = allUsers.get(originalUser.getId()); 
@@ -332,8 +332,8 @@ public class Database {
 		toBeRemovedUser.getFriends().remove(originalUser); // remove user from friend's personal friend BST
 	}
 	
-	/* Needs everyone's input on this
-	 * ------------------------Not finished-----------------------------
+	/*
+	 * ------------------------Finished-----------------------------
 	 */
 	public static void addFriend(User originalUser, User toBeAddedUser) {
 		LinkedList<Integer> userLinkedList = allUsers.get(originalUser.getId()); 

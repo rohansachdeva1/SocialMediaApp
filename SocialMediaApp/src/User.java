@@ -153,17 +153,18 @@ public class User implements Comparable<User>{
 	 * ---------------------------------------COMPLETE---------------------------------------
 	 */
 	public ArrayList<User> searchFromFriendList(String targetName) { //would be more efficient if we use hashtable, but I will do it with arraylist since efficiency isn't required.
-		ArrayList<User> result = getSortedFriendArrayList();
-		for (int i = 0; i < result.size(); i++) {
-			User userInIndex = result.get(i);
-			String userNameInUpperCase = userInIndex.getFirstName().toUpperCase() + ' ' + userInIndex.getFirstName().toUpperCase();
-			String targetNameInUpperCase = targetName.toUpperCase();
-			if (userNameInUpperCase.contains(targetNameInUpperCase)) {
-				result.add(userInIndex);
-			}
-		}
-		return result;
-	}
+        ArrayList<User> result = getSortedFriendArrayList();
+        ArrayList<User> returnResult = new ArrayList<User>();
+        for (int i = 0; i < result.size(); i++) {
+            User userInIndex = result.get(i);
+            String userNameInUpperCase = userInIndex.getFirstName().toUpperCase() + ' ' + userInIndex.getFirstName().toUpperCase();
+            String targetNameInUpperCase = targetName.toUpperCase();
+            if (userNameInUpperCase.contains(targetNameInUpperCase)) {
+                returnResult.add(userInIndex);
+            }
+        }
+        return returnResult;
+    }
 	
 	// possibly pass in database as a parameter from the driver and then call the database method on it
 	public ArrayList<User> getRecommendation() {
