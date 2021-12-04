@@ -22,7 +22,7 @@ public class Database {
 	private ArrayList<BST> interests; // array list of interests and which users have them
 
 	// Graph Team Data Structures for graph database, BFS and recommendation alg
-	private ArrayList<LinkedList<Integer>> allUsers; // graph database of all friend connections between users
+	private static ArrayList<LinkedList<Integer>> allUsers; // graph database of all friend connections between users
 	private ArrayList<Integer> distance; // used in BFS to store distances from initial node
 	private ArrayList<Integer> interestScore; // array list of score calculated from # of interests in common between 2 users
 
@@ -186,9 +186,9 @@ public class Database {
 		User newUser = new User(userID, firstName, lastName, userName, password, city, interestLinkedList);
 		allUsers.add(new LinkedList<Integer>());
 		userList.add(newUser); //To graph team: Do you mean to insert UserId?
-		
+		userHash.insert(newUser);
+		userBST.insert(newUser);
 		return newUser;
-		
 	}
 	
 	public ArrayList searchByNameReturnListOfResult(String nameKeyword) {
@@ -317,13 +317,13 @@ public class Database {
 		// move iterator to spot, then remove
 		userLinkedList.iteratorToIndex(userLinkedList.linearSearch(toBeRemovedUser.getId()));
 		userLinkedList.removeIterator();
-		originalUser.getFriends().remove(toBeAddedUser); // remove friend from user's personal friend BST
+		originalUser.getFriends().remove(toBeRemovedUser); // remove friend from user's personal friend BST
 
 		// removing user from friend in friend graph
 		// move iterator to spot, then remove
 		friendLinkedList.iteratorToIndex(friendLinkedList.linearSearch(originalUser.getId()));
 		friendLinkedList.removeIterator();
-		toBeAddedUser.getFriends().remove(originalUser); // remove user from friend's personal friend BST
+		toBeRemovedUser.getFriends().remove(originalUser); // remove user from friend's personal friend BST
 	}
 	
 	/* Needs everyone's input on this
