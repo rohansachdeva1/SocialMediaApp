@@ -120,7 +120,7 @@ public class HashTable<T extends Comparable<T>> {
 		Table.get(bucket).positionIterator();
 		for (int i = 0; i < Table.get(bucket).getLength(); i++) {
 			User tempU = (User)Table.get(bucket).getIterator();
-			if (tempU.getUserName() == u.getUserName() && tempU.getPassword() == u.getPassword()) {
+			if (tempU.getUserName().equals(u.getUserName()) && tempU.getPassword().equals(u.getPassword())) {
 				return Table.get(bucket).getIterator();
 			}
 			try {

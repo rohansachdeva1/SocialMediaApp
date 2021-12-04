@@ -301,7 +301,9 @@ public class Database {
 //		}
 		BST<User> temp = interests.get(interestHash.hash(targetInterestName));
 		ArrayList<User> interestUserList = temp.inOrderData();
+		System.out.println("interestUserList: " + interestUserList.toString());
 		ArrayList<User> userFriendList = currUser.getSortedFriendArrayList();
+		System.out.println("userFriendList: " + userFriendList.toString());
 		ArrayList<User> resultList = new ArrayList<>();
 		for (int i = 0; i < interestUserList.size(); i++) {
 			if (!userFriendList.contains(interestUserList.get(i))) {
@@ -335,6 +337,7 @@ public class Database {
 	 * ------------------------Finished-----------------------------
 	 */
 	public static void addFriend(User originalUser, User toBeAddedUser) {
+		System.out.println("inside database adding friend");
 		LinkedList<Integer> userLinkedList = allUsers.get(originalUser.getId()); 
 		LinkedList<Integer> friendLinkedList = allUsers.get(toBeAddedUser.getId()); 
 

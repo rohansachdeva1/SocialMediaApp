@@ -28,6 +28,11 @@ public class Interest implements Comparable<Interest>{
 	public String toString() {
 		return getName();
 	}
+	
+	 @Override
+	    public int hashCode() {
+	        return getName().hashCode();
+	    }
 
 	@Override
 	public int compareTo(Interest o) {

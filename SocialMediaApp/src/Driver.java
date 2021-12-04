@@ -157,9 +157,8 @@ public class Driver {
 		User selectedUser;
 		ArrayList<User> searchResult;
 		Boolean exitStatus = false;
-		
+		Scanner sc = new Scanner(System.in);
 		while (!exitStatus) {
-			Scanner sc = new Scanner(System.in);
 			System.out.println("Enter the following options ('1', '2' or '3'): ");
 			System.out.println("1. Search users by name ");
 			System.out.println("2. Search users by interest");
@@ -182,18 +181,19 @@ public class Driver {
 				System.out.println("1. add this user");
 				System.out.println("2. Go back to the previous page");
 				choice = Integer.parseInt(sc.nextLine());
-				switch (choice) {
+				switch(choice) {
 				case 1:
-					//remove friend
+					System.out.println("adding friend");
+
 					currentUser.addFriend(selectedUser);
-				case 2:
-					//go back
-				
+					break;
 				}
+				break;
 			case 2:
 				System.out.println("Enter the interest that you would like to search: ");
 				String targetInterest = sc.nextLine();
 				searchResult = database.searchUserByInterest(targetInterest, currentUser);
+				System.out.println("interest search result: " + searchResult.toString());
 				displayArrayListUser(searchResult);
 				
 				System.out.println("Enter the friend number ('1', '2', '3' etc.): ");
@@ -209,8 +209,10 @@ public class Driver {
 				case 1:
 					//remove friend
 					currentUser.addFriend(selectedUser);
+					break;
 				case 2:
 					//go back
+					break;
 				
 				}
 			case 3:
@@ -230,20 +232,25 @@ public class Driver {
 				case 1:
 					//remove friend
 					currentUser.addFriend(selectedUser);
+					break;
 				case 2:
 					//go back
+					break;
 				
 				}
-				
+			case 4:
+				exitStatus = true;
+				break;
 			}
-			sc.close();
 		}
+		sc.close();
 	}
 	
 	
 	
 	
 	public static void displayArrayListUser(ArrayList<User> inputArrayList) {
+		System.out.println("inputArrayList: " + inputArrayList.toString());
 		for (int i = 0; i < inputArrayList.size(); i++) {
 			User userFromCurrentIndex = inputArrayList.get(i);
 			System.out.println(i + ": " + userFromCurrentIndex.getFirstName() + " " + userFromCurrentIndex.getLastName());

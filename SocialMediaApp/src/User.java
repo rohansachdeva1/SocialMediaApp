@@ -185,6 +185,7 @@ public class User implements Comparable<User>{
 	}
 
 	public void addFriend(User toBeAddedUser) {
+		System.out.println("inside user class adding friend");
 		Database.addFriend(this, toBeAddedUser);
 	}
 
@@ -197,12 +198,16 @@ public class User implements Comparable<User>{
 		return getFirstName() + " " + getLastName();
 	}
 	
+	@Override
+    public int hashCode() {
+        return (userName + password).hashCode();
+    }
+	
 	/* Compares two User objects
 	 * Returns 0 if the two user objects has the same name
 	 * else, returns the compareTo value of this.firstName compared to o.firstName.
 	 * else, returns the compareTo value of this.lastName compared to o.lastName.
 	 */
-	
 	@Override
 	public int compareTo(User o) {
         if (firstName.equals(o.firstName)&&lastName.equals(o.lastName)) 
