@@ -121,6 +121,11 @@ public class User implements Comparable<User>{
 		this.friends.insert(friend);
 	}
 	
+	public void removeFriends(User friend) {
+		this.friends.remove(friend);
+	}
+	
+	
 	
 	/*
 	 * ---------------------------------------NOT COMPLETE---------------------------------------
