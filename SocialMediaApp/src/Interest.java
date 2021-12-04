@@ -5,7 +5,6 @@ public class Interest implements Comparable<Interest>{
 
 	public Interest(String name, int id) {
 		this.interestName = name;
-		// HASH TEAM: need a hash function that takes interest name and generates an id
 		this.interestID = id;
 	}
 
@@ -23,16 +22,6 @@ public class Interest implements Comparable<Interest>{
 
 	public void setName(String name) {
 		this.interestName = name;
-	}
-
-	@Override
-	public int hashCode() {
-		String key = getName() + getId();
-		int sum = 0;
-		for (int i = 0; i < key.length(); i++) {
-			sum += (int) key.charAt(i);
-		}
-		return sum;
 	}
 
 	@Override

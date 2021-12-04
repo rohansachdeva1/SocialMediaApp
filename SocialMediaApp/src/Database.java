@@ -29,8 +29,8 @@ public class Database {
 	private static int numUsers; // holds number of users, used to create user id
 	
 	// Hash table team
-	private HashTable userHash; // a Hash table to store User Object, used for logging in
-	private HashTable interestsHash; // a hash table to store Interest Object, used for searching interests
+	private HashTable<User> userHash; // a Hash table to store User Object, used for logging in
+	private HashTable<Interest> interestsHash; // a hash table to store Interest Object, used for searching interests
 	
 	// to load the data from a file
 	public Database() {
@@ -56,8 +56,8 @@ public class Database {
 		
 		
 		// Hash team initialize data structure
-		userHash = new HashTable(45); //initialize a hashtable with size 3*15 
-		interestsHash = new HashTable(135); //initialize a hash table with size 3*3 interests*15 users
+		userHash = new HashTable<>(45); //initialize a hashtable with size 3*15 
+		interestsHash = new HashTable<>(135); //initialize a hash table with size 3*3 interests*15 users
 		
 		try {
 			/* 
@@ -103,18 +103,14 @@ public class Database {
 				LinkedList<Interest> interestLinkedList = new LinkedList<>();
 
 				// Add each interest to user's individual linked list of interests
-				for (int j = 0; j < numOfInterests ; j++){
-					String interestName = br.readLine();
-//					int interestID = hash(interestName); // HASH TEAM
-					int interestID = interestsHash.hash(interestName);
-
+				for (int j = 0; j < numOfInterests ; j++) {
+					String interestName = br.readLine();				
+					int interestID = (interestName.hashCode() % interestsHash.getSize());
 					Interest tempInterestObj = new Interest(interestName, interestID);
 					interestLinkedList.addLast(tempInterestObj); // add interest object to linked list
 					interestsHash.insert(tempInterestObj); // add interest object to hash table storing interest
-					
 					interests.get(interestID).insert(userID); // add userID to interest BST
 				} // NEEDS WORK creating interest ob
-
 				// Create new user from input data -- with empty friendlist
 				User newUser = new User(userID, firstName, lastName, userName, password, city, interestLinkedList);
 				userList.add(newUser);
@@ -291,16 +287,17 @@ public class Database {
 		return result;
 	}
 	
-	
 	/* 
-	 * ------------------------Not finished-----------------------------
+	 * ------------------------Needs testing-----------------------------
 	 */
-	public ArrayList<User> searchUserByInterest(String targetInterest){
-		ArrayList<User> result;
+	public ArrayList<User> searchUserByInterest(String targetInterestName){
+		
+		Interest tmpInterest = new Interest(targetInterestName, targetInterestName.hashCode() % interestsHash.getSize());
+		if (interestsHash.search(tmpInterest) != null) {
+			interestsHash.search(tmpInterest).getId();
+		};
 		return result;
 	}
-	
-	
 	
 	/* Needs everyone's input on this
 	 * ------------------------Not finished-----------------------------
