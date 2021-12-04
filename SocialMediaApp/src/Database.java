@@ -110,6 +110,7 @@ public class Database {
 					int interestID = interestHash.hash(interestName);
 					Interest tempInterestObj = new Interest(interestName, interestID);
 					interestLinkedList.addLast(tempInterestObj); // add interest object to linked list
+					
 					interestHash.insert(tempInterestObj); // add interest object to hash table storing interest
 					interests.get(interestID).insert(userID); // add userID to interest BST
 				} // NEEDS WORK creating interest ob
