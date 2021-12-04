@@ -65,7 +65,7 @@ public class Driver {
 					makeFriendsOutsideOfTheCircle();
 					break;
 				case 3:
-					database.writeToFile();
+					Database.writeToFile();
 					loginStatus = false;
 					break;
 				}

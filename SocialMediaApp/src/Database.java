@@ -1,7 +1,9 @@
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.*;
 //import java.util.LinkedList;
 
@@ -198,8 +200,40 @@ public class Database {
 	}
 	
 	//save file when we call the quit method
-	public void writeToFile() {
-		
+	public static void writeToFile() {
+		String currentFileContents = getCurrentFileContentsAsString();
+		User currUser = (User) Driver.currentUser;
+		int numFriends = currUser.getSortedFriendArrayList().size();
+		int numInterests = currUser.getInterests().getLength();
+		try {
+			PrintWriter out = new PrintWriter("data.txt");
+			out.print(currentFileContents + "\n" + currUser.getId() + "\n" + currUser.getFirstName() + " " + currUser.getLastName() + "\n" + currUser.getPassword() + "\n" + currUser.getCity() + "\n" + numFriends);
+			for (int i = 0; i < numFriends; i++) {
+				out.print("\n" + currUser.getSortedFriendArrayList().get(i));
+			}
+			out.print("\n" + numInterests);
+			for (int i = 0; i < numInterests; i++) {
+				out.print("\n" + currUser.getInterests().toString());
+			}
+			out.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	//Create a string of the current data.txt file
+	private static String getCurrentFileContentsAsString() {
+		try {
+			Scanner input = new Scanner(new File("data.txt"));
+			StringBuilder sb = new StringBuilder();
+			while (input.hasNext()) {
+				sb.append(input.nextLine()).append("\n");
+			}
+			input.close();
+			return sb.toString();
+		} catch (Exception e) {
+			return "";
+		}
 	}
 
 	// BFS method
