@@ -275,22 +275,23 @@ public class Database {
 	 * ------------------------Complete-----------------------------
 	 */
 	public ArrayList<User> searchUserByName(String targetName){
-		ArrayList<User> result = userBST.inOrderData();
-		for (int i = 0; i < result.size(); i++) {
-			User userInIndex = result.get(i);
+		ArrayList<User> userList = userBST.inOrderData();
+		ArrayList<User> resultList = new ArrayList<>();
+		for (int i = 0; i < userList.size(); i++) {
+			User userInIndex = userList.get(i);
 			String userNameInUpperCase = userInIndex.getFirstName().toUpperCase() + ' ' + userInIndex.getFirstName().toUpperCase();
 			String targetNameInUpperCase = targetName.toUpperCase();
 			if (userNameInUpperCase.contains(targetNameInUpperCase)) {
-				result.add(userInIndex);
+				resultList.add(userInIndex);
 			}
 		}
-		return result;
+		return resultList;
 	}
 	
 	/* 
 	 * ------------------------Needs testing-----------------------------
 	 */
-	public ArrayList<User> searchUserByInterest(String targetInterestName){
+	public ArrayList<User> searchUserByInterest(String targetInterestName, User currUser){
 //		Interest tmpInterest = new Interest(targetInterestName, interestHash.hash(targetInterestName));
 //		Interest resultInterest = interestHash.searchInterest(tmpInterest);
 //		if (resultInterest != null) { 
@@ -299,12 +300,16 @@ public class Database {
 //		} else { 
 //			return null;
 //		}
-		BST temp = interests.get(interestHash.hash(targetInterestName));
-		if (temp != null) {
-			return temp.inOrderData();
-		} else {
-			return null;
+		BST<User> temp = interests.get(interestHash.hash(targetInterestName));
+		ArrayList<User> interestUserList = temp.inOrderData();
+		ArrayList<User> userFriendList = currUser.getSortedFriendArrayList();
+		ArrayList<User> resultList = new ArrayList<>();
+		for (int i = 0; i < interestUserList.size(); i++) {
+			if (!userFriendList.contains(interestUserList.get(i))) {
+				resultList.add(interestUserList.get(i));
+			}
 		}
+		return resultList;
 	}
 	
 	/* Needs everyone's input on this
