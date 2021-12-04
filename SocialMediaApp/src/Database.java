@@ -179,13 +179,14 @@ public class Database {
 			endOfInterest = true;
 		}
 		//generate a new user ID after the largest user ID in the database
-		int userID = ++numUsers;
+		numUsers++;
+		int userID = numUsers; 
 		
 		//BST friendBST = new BST(); // should start with no friends, then the user can add friends
 		User newUser = new User(userID, firstName, lastName, userName, password, city, interestLinkedList);
-		allUsers.insert(newUser); //To graph team: Do you mean to insert UserId?
+		allUsers.add(new LinkedList<Integer>());
+		userList.add(newUser); //To graph team: Do you mean to insert UserId?
 		
-		addFriend(newUser); //We will need to use the addFriend method to update our data structure.
 		return newUser;
 		
 	}
