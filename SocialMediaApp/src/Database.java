@@ -23,7 +23,7 @@ public class Database {
 
 	// Graph Team Data Structures for graph database, BFS and recommendation alg
 	private static ArrayList<LinkedList<Integer>> allUsers; // graph database of all friend connections between users
-	private ArrayList<Integer> distance; // used in BFS to store distances from initial node
+	private static ArrayList<Integer> distance; // used in BFS to store distances from initial node
 	private static ArrayList<Integer> interestScore; // array list of score calculated from # of interests in common between 2 users
 
 	private static int numUsers; // holds number of users, used to create user id
@@ -203,12 +203,12 @@ public class Database {
 	}
 
 	// BFS method
-	public void BFS(Integer source) {
+	public static void BFS(Integer source) {
 
         LinkedList<Integer> Q = new LinkedList<Integer>(); // temp linked list to store queue
 
 		// set all initial values to -1 for both distance arraylist and interestScore arraylist
-        for (int i = 1; i <= this.numUsers; i++) {
+        for (int i = 1; i <= numUsers; i++) {
             distance.set(i, -1);
             interestScore.set(i, -1);
         }
@@ -258,7 +258,7 @@ public class Database {
 	// Recommendation Method
 	public static ArrayList<User> getRecommendation(Integer source) {
 		ArrayList<User> answer = new ArrayList<>(); // linked list of users in order of final recommendation
-		allUsers.BFS(source); // call BFS on user graph, update distance and interestScore arraylists
+		BFS(source); // call BFS on user graph, update distance and interestScore arraylists
 
 		// add eligible users to linked list in order of most interests shared
 		int highestIndex = calcHighestIndex(interestScore);
