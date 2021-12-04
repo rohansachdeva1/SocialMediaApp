@@ -178,7 +178,12 @@ public class User implements Comparable<User>{
 		Database.removeFriend(this, toBeRemovedUser);
 	}
 	
-
+	/* Compares two User objects
+	 * Returns 0 if the two user objects has the same name
+	 * else, returns the compareTo value of this.firstName compared to o.firstName.
+	 * else, returns the compareTo value of this.lastName compared to o.lastName.
+	 */
+	
 	@Override
 	public int compareTo(User o) {
         if (firstName.equals(o.firstName)&&lastName.equals(o.lastName)) 
