@@ -29,8 +29,8 @@ public class Database {
 	private static int numUsers; // holds number of users, used to create user id
 	
 	// Hash table team
-	private HashTable<User> userHash; // a Hash table to store User Object, used for logging in
-	private HashTable<Interest> interestHash; // a hash table to store Interest Object, used for searching interests
+	private HashTable userHash; // a Hash table to store User Object, used for logging in
+	private HashTable interestsHash; // a hash table to store Interest Object, used for searching interests
 	
 	// to load the data from a file
 	public Database() {
@@ -42,10 +42,8 @@ public class Database {
 
 		// initialize data structures and create 0th place
 		interests = new ArrayList<>();
-		for (int i = 0; i < 135; i++) {
-			interests.add(new BST<>()); // 0th linked list, not used
-		} // initialize first 135(same as in interestHash) so that won't get out of bound error
-		
+		interests.add(new BST<>()); // 0th linked list, not used
+
 		// Graph Team initialize data structures and create 0th place
 		allUsers = new ArrayList<>();
 		allUsers.add(new LinkedList<Integer>()); // 0th linked list, not used
@@ -58,8 +56,8 @@ public class Database {
 		
 		
 		// Hash team initialize data structure
-		userHash = new HashTable<>(45); //initialize a hash table with size 3*15 
-		interestHash = new HashTable<>(135); //initialize a hash table with size 3*3 interests*15 users
+		userHash = new HashTable(45); //initialize a hashtable with size 3*15 
+		interestsHash = new HashTable(135); //initialize a hash table with size 3*3 interests*15 users
 		
 		try {
 			/* 
@@ -105,14 +103,18 @@ public class Database {
 				LinkedList<Interest> interestLinkedList = new LinkedList<>();
 
 				// Add each interest to user's individual linked list of interests
-				for (int j = 0; j < numOfInterests ; j++) {
-					String interestName = br.readLine();				
-					int interestID = interestHash.hash(interestName);
+				for (int j = 0; j < numOfInterests ; j++){
+					String interestName = br.readLine();
+//					int interestID = hash(interestName); // HASH TEAM
+					int interestID = interestsHash.hash(interestName);
+
 					Interest tempInterestObj = new Interest(interestName, interestID);
 					interestLinkedList.addLast(tempInterestObj); // add interest object to linked list
-					interestHash.insert(tempInterestObj); // add interest object to hash table storing interest
+					interestsHash.insert(tempInterestObj); // add interest object to hash table storing interest
+					
 					interests.get(interestID).insert(userID); // add userID to interest BST
 				} // NEEDS WORK creating interest ob
+
 				// Create new user from input data -- with empty friendlist
 				User newUser = new User(userID, firstName, lastName, userName, password, city, interestLinkedList);
 				userList.add(newUser);
@@ -201,6 +203,9 @@ public class Database {
 	
 	//save file when we call the quit method
 	public void writeToFile() {
+		// update new user objects
+		// update new friends added
+		// update friends removed
 		
 	}
 
@@ -289,25 +294,16 @@ public class Database {
 		return result;
 	}
 	
+	
 	/* 
-	 * ------------------------Needs testing-----------------------------
+	 * ------------------------Not finished-----------------------------
 	 */
-	public ArrayList<User> searchUserByInterest(String targetInterestName){
-//		Interest tmpInterest = new Interest(targetInterestName, interestHash.hash(targetInterestName));
-//		Interest resultInterest = interestHash.searchInterest(tmpInterest);
-//		if (resultInterest != null) { 
-//			int index = resultInterest.getId();
-//			return interests.get(index).inOrderData();
-//		} else { 
-//			return null;
-//		}
-		BST temp = interests.get(interestHash.hash(targetInterestName));
-		if (temp != null) {
-			return temp.inOrderData();
-		} else {
-			return null;
-		}
+	public ArrayList<User> searchUserByInterest(String targetInterest){
+		ArrayList<User> result;
+		return result;
 	}
+	
+	
 	
 	/* Needs everyone's input on this
 	 * ------------------------Not finished-----------------------------
