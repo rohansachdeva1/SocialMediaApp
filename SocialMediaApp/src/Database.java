@@ -18,13 +18,13 @@ public class Database {
 	 */
 
 	private BST<User> userBST = new BST<>(); // stores all users in a BST of user objects
-	private ArrayList<User> userList; // arraylist of users stored at the position of their id's
+	private static ArrayList<User> userList; // arraylist of users stored at the position of their id's
 	private ArrayList<BST> interests; // array list of interests and which users have them
 
 	// Graph Team Data Structures for graph database, BFS and recommendation alg
 	private static ArrayList<LinkedList<Integer>> allUsers; // graph database of all friend connections between users
 	private ArrayList<Integer> distance; // used in BFS to store distances from initial node
-	private ArrayList<Integer> interestScore; // array list of score calculated from # of interests in common between 2 users
+	private static ArrayList<Integer> interestScore; // array list of score calculated from # of interests in common between 2 users
 
 	private static int numUsers; // holds number of users, used to create user id
 	
@@ -188,6 +188,7 @@ public class Database {
 		userList.add(newUser); //To graph team: Do you mean to insert UserId?
 		userHash.insert(newUser);
 		userBST.insert(newUser);
+		sc.close();
 		return newUser;
 	}
 	
@@ -227,16 +228,16 @@ public class Database {
 
 					// calculate interest score between source and current user, store in interestScore arraylist
 					if (distance.get(allUsers.get(x).getIterator()) > 1) {
-						userList.get(source).interests.positionIterator();
-						userList.get(x).interests.positionIterator();
+						userList.get(source).getInterests().positionIterator();
+						userList.get(x).getInterests().positionIterator();
 						int count = 0;
 
-						while (userList.get(source).interests.offEnd() != true && userList.get(x).interests.offEnd() != true) {
-							if (userList.get(source).interests.getIterator().compareTo(userList.get(x).interests.getIterator()) == 0) {
+						while (userList.get(source).getInterests().offEnd() != true && userList.get(x).getInterests().offEnd() != true) {
+							if (userList.get(source).getInterests().getIterator().compareTo(userList.get(x).getInterests().getIterator()) == 0) {
 								count++;
 							}
-							userList.get(source).interests.advanceIterator();
-							userList.get(x).interests.advanceIterator();
+							userList.get(source).getInterests().advanceIterator();
+							userList.get(x).getInterests().advanceIterator();
 						}
 						interestScore.set(x, count);
 						count = 0;
@@ -248,14 +249,14 @@ public class Database {
         }
     }
 
-	public int calcHighestIndex(ArrayList input) {
+	public static int calcHighestIndex(ArrayList input) {
 		int highest = Collections.max(input);
 		int index = input.indexOf(highest);
 		return index;
 	}
 
 	// Recommendation Method
-	public static ArrayList<User> getRecommendation(int source) {
+	public static ArrayList<User> getRecommendation(Integer source) {
 		ArrayList<User> answer = new ArrayList<>(); // linked list of users in order of final recommendation
 		allUsers.BFS(source); // call BFS on user graph, update distance and interestScore arraylists
 
