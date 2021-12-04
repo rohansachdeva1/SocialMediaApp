@@ -23,6 +23,11 @@ public class Interest implements Comparable<Interest>{
 	public void setName(String name) {
 		this.interestName = name;
 	}
+	
+	@Override
+	public String toString() {
+		return getName();
+	}
 
 	@Override
 	public int compareTo(Interest o) {

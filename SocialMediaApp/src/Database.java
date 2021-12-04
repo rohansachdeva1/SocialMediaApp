@@ -19,7 +19,7 @@ public class Database {
 
 	private BST<User> userBST = new BST<>(); // stores all users in a BST of user objects
 	private static ArrayList<User> userList; // arraylist of users stored at the position of their id's
-	private ArrayList<BST> interests; // array list of interests and which users have them
+	private ArrayList<BST<User>> interests; // array list of interests and which users have them
 
 	// Graph Team Data Structures for graph database, BFS and recommendation alg
 	private static ArrayList<LinkedList<Integer>> allUsers; // graph database of all friend connections between users
@@ -34,7 +34,7 @@ public class Database {
 	
 	// to load the data from a file
 	public Database() {
-		File file = new File("src/data.txt");
+		File file = new File("data.txt");
 
 		// create an arraylist to temporarily store the friend list, index 
 		//		ArrayList<LinkedList<Integer>> tempFriendList = new ArrayList<>();
@@ -43,7 +43,7 @@ public class Database {
 		// initialize data structures and create 0th place
 		interests = new ArrayList<>();
 		for (int i = 0; i < 135; i++) {
-			interests.add(new BST<>()); // 0th linked list, not used
+			interests.add(new BST<User>()); // 0th linked list, not used
 		} // initialize first 135(same as in interestHash) so that won't get out of bound error
 		
 		// Graph Team initialize data structures and create 0th place
@@ -88,7 +88,6 @@ public class Database {
 				String lastName = fullName.substring(spaceIndex+1);
 				String userName = br.readLine();
 				String password = br.readLine();
-				String city = br.readLine();
 				int numOfFriends = Integer.parseInt(br.readLine());
 				
 				allUsers.add(new LinkedList<Integer>());
@@ -99,8 +98,9 @@ public class Database {
 					int friendID = Integer.parseInt(br.readLine());
 					allUsers.get(numUsers).addLast(friendID); //
 				}
-
 				// Create arraylist of interests
+				String city = br.readLine();
+				User newUser = new User(userID, firstName, lastName, userName, password, city);
 				int numOfInterests = Integer.parseInt(br.readLine());
 				LinkedList<Interest> interestLinkedList = new LinkedList<>();
 
@@ -112,10 +112,10 @@ public class Database {
 					interestLinkedList.addLast(tempInterestObj); // add interest object to linked list
 					
 					interestHash.insert(tempInterestObj); // add interest object to hash table storing interest
-					interests.get(interestID).insert(userID); // add userID to interest BST
+					interests.get(interestID).insert(newUser); // add userID to interest BST
 				} // NEEDS WORK creating interest ob
+				newUser.setInterests(interestLinkedList);
 				// Create new user from input data -- with empty friendlist
-				User newUser = new User(userID, firstName, lastName, userName, password, city, interestLinkedList);
 				userList.add(newUser);
 				distance.add(-1);
 				interestScore.add(-1);
@@ -123,7 +123,7 @@ public class Database {
 
 				// Loop through interests linked list and add user to each interest in interest arraylist BST
 				interestLinkedList.positionIterator();
-				while (interestLinkedList.offEnd() == false) {
+				while (interestLinkedList.getIterator() != interestLinkedList.getLast()) {
 					int position = interestLinkedList.getIterator().getId();
 					interests.get(position).insert(newUser);
 					interestLinkedList.advanceIterator();
@@ -143,7 +143,6 @@ public class Database {
 					allUsers.get(k).advanceIterator(); //moving iterator to second node (second friend id)
 				}
 			}
-		
 		} catch (IOException e) {
 			System.out.println("File not found!");
 		}
@@ -157,26 +156,26 @@ public class Database {
 	public User createUser() {
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Please enter your first name: ");
-		String firstName = sc.next();
+		String firstName = sc.nextLine();
 		System.out.println("Please enter your last name: ");
-		String lastName = sc.next();
+		String lastName = sc.nextLine();
 		System.out.println("Please enter your userName: ");
-		String userName = sc.next();
+		String userName = sc.nextLine();
 		System.out.println("Please enter your password: ");
-		String password = sc.next();
+		String password = sc.nextLine();
 		System.out.println("Please enter your city: ");
-		String city = sc.next();
+		String city = sc.nextLine();
 		boolean endOfInterest = false;
 		LinkedList<Interest> interestLinkedList = new LinkedList<>();
-		while (!endOfInterest) {
+		 while (!endOfInterest) {
 			System.out.println("Please enter your interests (enter '0' if there is not more interest to add): ");
-			String interest = sc.next();
-			
-			if (interest != "0") {
-				//buildInterest();
-				continue;
-			}
-			endOfInterest = true;
+			String interest = sc.nextLine();		
+			if (!interest.equals("0")) {
+                Interest tempI = new Interest(interest, interestHash.hash(interest));
+                interestLinkedList.addLast(tempI);
+            } else {
+                endOfInterest = true;
+            }
 		}
 		//generate a new user ID after the largest user ID in the database
 		numUsers++;
@@ -188,7 +187,6 @@ public class Database {
 		userList.add(newUser); //To graph team: Do you mean to insert UserId?
 		userHash.insert(newUser);
 		userBST.insert(newUser);
-		sc.close();
 		return newUser;
 	}
 	
@@ -275,11 +273,12 @@ public class Database {
 	 * ------------------------Complete-----------------------------
 	 */
 	public ArrayList<User> searchUserByName(String targetName){
+		System.out.println("Searching: " + targetName);
 		ArrayList<User> userList = userBST.inOrderData();
 		ArrayList<User> resultList = new ArrayList<>();
 		for (int i = 0; i < userList.size(); i++) {
 			User userInIndex = userList.get(i);
-			String userNameInUpperCase = userInIndex.getFirstName().toUpperCase() + ' ' + userInIndex.getFirstName().toUpperCase();
+			String userNameInUpperCase = userInIndex.getFirstName().toUpperCase() + ' ' + userInIndex.getLastName().toUpperCase();
 			String targetNameInUpperCase = targetName.toUpperCase();
 			if (userNameInUpperCase.contains(targetNameInUpperCase)) {
 				resultList.add(userInIndex);

@@ -15,16 +15,14 @@ public class Driver {
 		boolean loginStatus = false;
 		int choice;
 		Scanner sc = new Scanner(System.in);
-		Database database = new Database();
-		User currentUser; //This is assigned at the login
+		database = new Database();
 		
 		while (!loginStatus) {
 			System.out.println("Choose the option number ('1', '2' or '3'): ");
 			System.out.println("1: Login");
 			System.out.println("2: Create Account");
 			System.out.println("3: Exit");
-			choice = sc.nextInt();
-			sc.nextLine(); //to avoid skipped nextLine() command due to nextInt() doesn't read newline character
+			choice = Integer.parseInt(sc.nextLine());
 			switch(choice) {
 			case 1:
 				/*
@@ -47,7 +45,9 @@ public class Driver {
 				break;
 			case 2:
 				currentUser = database.createUser(); //should create a new user, then this becomes the current user.
+				System.out.println();
 				loginStatus = true;
+				break;
 			case 3:
 				System.exit(0); //exit the program
 			}
@@ -56,15 +56,18 @@ public class Driver {
 				System.out.println("1: View my friends");
 				System.out.println("2: Make new friend");
 				System.out.println("3: Exit");
-				choice = sc.nextInt(); //could give some exception handling
+				choice = Integer.parseInt(sc.nextLine()); //could give some exception handling
 				switch(choice) {
 				case 1:
 					viewFriend();
+					break;
 				case 2:
 					makeFriendsOutsideOfTheCircle();
+					break;
 				case 3:
 					database.writeToFile();
 					loginStatus = false;
+					break;
 				}
 				
 			}
@@ -88,21 +91,21 @@ public class Driver {
 			System.out.println("1. View sorted friend list");
 			System.out.println("2. Search friends their their names");
 			System.out.println("3. Go back to the previous page");
-			choice = sc.nextInt();
+			choice = Integer.parseInt(sc.nextLine());
 			switch (choice) {
 			case 1: //view sorted friend
 				ArrayList<User> sortedFriendList = currentUser.getSortedFriendArrayList();//sort by name
 				displayArrayListUser(sortedFriendList);
 				
 				System.out.println("Enter the friend number ('1', '2', '3' etc.): ");
-				index = sc.nextInt();
+				index = Integer.parseInt(sc.nextLine());
 				
 				selectedUser = getSelectedUser(sortedFriendList, index);
 				selectedUser.displayUserProfile();
 				System.out.println("Enter the following options ('1' or '2'): ");
 				System.out.println("1. Remove this friend");
 				System.out.println("Go back to the previous page");
-				choice = sc.nextInt();
+				choice = Integer.parseInt(sc.nextLine());
 				switch (choice) {
 				case 1:
 					//remove friend
@@ -114,19 +117,19 @@ public class Driver {
 			case 2: //search friend
 				//search by name
 				System.out.println("Enter the name that you would like to search: ");
-				String targetName = sc.next();
+				String targetName = sc.nextLine();
 				ArrayList<User> searchResult = currentUser.searchFromFriendList(targetName);
 				displayArrayListUser(searchResult);
 				
 				System.out.println("Enter the friend number ('1', '2', '3' etc.): ");
-				index = sc.nextInt();
+				index = Integer.parseInt(sc.nextLine());
 				
 				selectedUser = getSelectedUser(searchResult, index);
 				selectedUser.displayUserProfile();
 				System.out.println("Enter the following options ('1' or '2'): ");
 				System.out.println("1. Remove this friend");
 				System.out.println("2. Go back to the previous page");
-				choice = sc.nextInt();
+				choice = Integer.parseInt(sc.nextLine());
 				switch (choice) {
 				case 1:
 					//remove friend
@@ -161,23 +164,24 @@ public class Driver {
 			System.out.println("1. Search users by name ");
 			System.out.println("2. Search users by interest");
 			System.out.println("3. Go back to the previous page");
-			choice = sc.nextInt();
+			choice = Integer.parseInt(sc.nextLine());
 			switch (choice) {
 			case 1:
 				System.out.println("Enter the name that you would like to search: ");
-				String targetName = sc.next();
+				String targetName = sc.nextLine();
 				searchResult = database.searchUserByName(targetName);
+				System.out.println("search result" + searchResult.toString());
 				displayArrayListUser(searchResult);
 				
 				System.out.println("Enter the friend number ('1', '2', '3' etc.): ");
-				index = sc.nextInt();
+				index = Integer.parseInt(sc.nextLine());
 				
 				selectedUser = getSelectedUser(searchResult, index);
 				selectedUser.displayUserProfile();
 				System.out.println("Enter the following options ('1' or '2'): ");
 				System.out.println("1. add this user");
 				System.out.println("2. Go back to the previous page");
-				choice = sc.nextInt();
+				choice = Integer.parseInt(sc.nextLine());
 				switch (choice) {
 				case 1:
 					//remove friend
@@ -188,19 +192,19 @@ public class Driver {
 				}
 			case 2:
 				System.out.println("Enter the interest that you would like to search: ");
-				String targetInterest = sc.next();
+				String targetInterest = sc.nextLine();
 				searchResult = database.searchUserByInterest(targetInterest, currentUser);
 				displayArrayListUser(searchResult);
 				
 				System.out.println("Enter the friend number ('1', '2', '3' etc.): ");
-				index = sc.nextInt();
+				index = Integer.parseInt(sc.nextLine());
 				
 				selectedUser = getSelectedUser(searchResult, index);
 				selectedUser.displayUserProfile();
 				System.out.println("Enter the following options ('1' or '2'): ");
 				System.out.println("1. add this user");
 				System.out.println("2. Go back to the previous page");
-				choice = sc.nextInt();
+				choice = Integer.parseInt(sc.nextLine());
 				switch (choice) {
 				case 1:
 					//remove friend
@@ -214,14 +218,14 @@ public class Driver {
 				displayArrayListUser(recommendationResult);
 				
 				System.out.println("Enter the friend number ('1', '2', '3' etc.): ");
-				index = sc.nextInt();
+				index = Integer.parseInt(sc.nextLine());
 				
 				selectedUser = getSelectedUser(recommendationResult, index);
 				selectedUser.displayUserProfile();
 				System.out.println("Enter the following options ('1' or '2'): ");
 				System.out.println("1. add this user");
 				System.out.println("2. Go back to the previous page");
-				choice = sc.nextInt();
+				choice = Integer.parseInt(sc.nextLine());
 				switch (choice) {
 				case 1:
 					//remove friend

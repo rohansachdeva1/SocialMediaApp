@@ -408,7 +408,7 @@ public class BST<T extends Comparable<T>> {
     	}
     	else {
     		inOrderString(node.left, inOrder);
-    		inOrder.append(node.data + " ");
+    		inOrder.append(node.data.toString() + " ");
     		inOrderString(node.right, inOrder);
     	}
     }

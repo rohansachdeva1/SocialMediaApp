@@ -310,10 +310,9 @@ public class LinkedList<T> {
     public void advanceIterator() throws NullPointerException {
         if (offEnd()) {
         	throw new NullPointerException("advanceIterator: " + "Iterator is null. Cannot move iterator!");
-        } else if (iterator == last) {
-        	throw new NoSuchElementException("advanceIterator: " + "Iterator is already on the last node!");
+        } else {
+        	iterator = iterator.next;
         }
-        iterator = iterator.next;
     }
     
     /**

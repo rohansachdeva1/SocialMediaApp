@@ -10,7 +10,6 @@ New York City
 2
 Amazon
 digital commerce
-
 2
 Tim Cook
 TCook
@@ -25,7 +24,6 @@ Palo Alto
 Apple
 renewable energy
 operating systems
-
 3
 Satya Nadella
 SNadella
@@ -38,7 +36,6 @@ Bellevue
 2
 Microsoft
 operating systems
-
 4
 Jack Ma
 JMa
@@ -51,7 +48,6 @@ Hangzhou
 2
 Alibaba Group
 digital commerce
-
 5
 Palmer Luckey
 PLuckey
@@ -64,7 +60,6 @@ Los Angeles
 2
 Oculus
 virtual reality
-
 6
 Marc Benioff
 MBenioff
@@ -77,7 +72,6 @@ San Francisco
 2
 Salesforce
 cloud computing
-
 7
 Zhengfei Ren
 ZRen
@@ -91,7 +85,6 @@ Shenzhen
 Huawei
 smartphones
 Telecommunication
-
 8
 Pishu Sun
 PSun
@@ -104,7 +97,6 @@ Shandong
 2
 Inspur
 cloud computing
-
 9
 Ginni Rometty
 GRometty
@@ -118,8 +110,8 @@ Armonk
 IBM
 cognitive computing
 AI
-
 10
+Bob Swan
 BSwan
 BS0010
 3
@@ -131,7 +123,6 @@ San Francisco
 Intel
 cloud computing
 Processors
-
 11
 Duncan Epping
 DEpping
@@ -145,7 +136,6 @@ Helmond
 VMware
 cloud computing
 Virtualization
-
 12
 Stewart Butterfield
 SButterfield
@@ -155,11 +145,10 @@ SB0012
 13
 14
 Vancouver
-2
+3
 Slack
 workplace software
 image hosting
-
 13
 Jensen Huang
 JHuang
@@ -173,7 +162,6 @@ Los Altos
 Nvidia
 GPU computing
 AI
-
 14
 Meredith Whittaker
 MWhittaker
@@ -187,7 +175,6 @@ New York City
 AI Now Institute
 AI
 ethical conduct
-
 15
 Andy Jassy
 AJassy
@@ -196,7 +183,6 @@ AJ0015
 8
 14
 13
-Meredith Whittaker
 Seattle
 4
 Amazon

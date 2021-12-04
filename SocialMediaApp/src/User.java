@@ -37,6 +37,17 @@ public class User implements Comparable<User>{
 		this.password = password;
 	}
 	
+	public User(int id, String firstName, String lastName, String userName, String password, String city) {
+		this.id = id;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.userName = userName;
+		this.password = password;
+		this.city = city;
+		this.friends = new BST<>();
+		this.interests = new LinkedList<Interest>();
+	}
+	
 	public User(int id, String firstName, String lastName, String userName, String password, String city,
 			LinkedList<Interest> interests) {
 		this.id = id;
@@ -47,6 +58,7 @@ public class User implements Comparable<User>{
 		this.city = city;
 		this.friends = new BST<>();
 		this.interests = interests;
+		System.out.println("I'm here!");
 	}
 
 	public User(int id, String firstName, String lastName, String userName, String password, String city,
@@ -135,8 +147,8 @@ public class User implements Comparable<User>{
 	public void displayUserProfile() {
 		System.out.println("Name: " + firstName + " " + lastName);
 		System.out.println("City: " + city);
-		System.out.println("Friends: ");
-		System.out.println("Interests: ");
+		System.out.println("Friends: " + friends.inOrderData());
+		System.out.println("Interests: " + interests.toString());
 	}
 	
 	/*
@@ -178,6 +190,11 @@ public class User implements Comparable<User>{
 
 	public void removeFriend(User toBeRemovedUser) {
 		Database.removeFriend(this, toBeRemovedUser);
+	}
+	
+	@Override
+	public String toString() {
+		return getFirstName() + " " + getLastName();
 	}
 	
 	/* Compares two User objects
