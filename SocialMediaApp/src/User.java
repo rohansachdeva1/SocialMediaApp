@@ -117,10 +117,11 @@ public class User implements Comparable<User>{
 		this.interests = interests;
 	}
 	
+	// for user's friend list, has nothing to do with database class
 	public void addFriends(User friend) {
 		this.friends.insert(friend);
 	}
-	
+	// for user's friend list, has nothing to do with database class
 	public void removeFriends(User friend) {
 		this.friends.remove(friend);
 	}
