@@ -181,8 +181,12 @@ public class User implements Comparable<User>{
 
 	@Override
 	public int compareTo(User o) {
-		// TODO Auto-generated method stub
-		return 0;
+        if (firstName.equals(o.firstName)&&lastName.equals(o.lastName)) 
+            return 0;
+        else if (!firstName.equals(o.firstName))
+            return firstName.compareTo(o.firstName);
+        else
+            return lastName.compareTo(o.lastName);
 	}
     
     
