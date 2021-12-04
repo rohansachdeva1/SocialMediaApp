@@ -303,15 +303,16 @@ public class Database {
 	/* 
 	 * ------------------------Complete-----------------------------
 	 */
-	public ArrayList<User> searchUserByName(String targetName){
+	public ArrayList<User> searchUserByName(String targetName, User currUser){
 		System.out.println("Searching: " + targetName);
 		ArrayList<User> userList = userBST.inOrderData();
+		ArrayList<User> userFriendList = currUser.getSortedFriendArrayList();
 		ArrayList<User> resultList = new ArrayList<>();
 		for (int i = 0; i < userList.size(); i++) {
 			User userInIndex = userList.get(i);
 			String userNameInUpperCase = userInIndex.getFirstName().toUpperCase() + ' ' + userInIndex.getLastName().toUpperCase();
 			String targetNameInUpperCase = targetName.toUpperCase();
-			if (userNameInUpperCase.contains(targetNameInUpperCase)) {
+			if (userNameInUpperCase.contains(targetNameInUpperCase) && !userFriendList.contains(userInIndex)) {
 				resultList.add(userInIndex);
 			}
 		}
