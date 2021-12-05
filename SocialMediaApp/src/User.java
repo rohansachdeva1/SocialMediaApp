@@ -169,7 +169,7 @@ public class User implements Comparable<User>{
         ArrayList<User> returnResult = new ArrayList<User>();
         for (int i = 0; i < result.size(); i++) {
             User userInIndex = result.get(i);
-            String userNameInUpperCase = userInIndex.getFirstName().toUpperCase() + ' ' + userInIndex.getFirstName().toUpperCase();
+            String userNameInUpperCase = userInIndex.getFirstName().toUpperCase() + ' ' + userInIndex.getLastName().toUpperCase();
             String targetNameInUpperCase = targetName.toUpperCase();
             if (userNameInUpperCase.contains(targetNameInUpperCase)) {
                 returnResult.add(userInIndex);

@@ -312,7 +312,7 @@ public class Database {
 			User userInIndex = userList.get(i);
 			String userNameInUpperCase = userInIndex.getFirstName().toUpperCase() + ' ' + userInIndex.getLastName().toUpperCase();
 			String targetNameInUpperCase = targetName.toUpperCase();
-			if (userNameInUpperCase.contains(targetNameInUpperCase) && !userFriendList.contains(userInIndex)) {
+			if (userNameInUpperCase.contains(targetNameInUpperCase) && !userFriendList.contains(userInIndex) && !Driver.currentUser.equals(userInIndex) ) {
 				resultList.add(userInIndex);
 			}
 		}
@@ -338,7 +338,7 @@ public class Database {
 		System.out.println("userFriendList: " + userFriendList.toString());
 		ArrayList<User> resultList = new ArrayList<>();
 		for (int i = 0; i < interestUserList.size(); i++) {
-			if (!userFriendList.contains(interestUserList.get(i))) {
+			if (!userFriendList.contains(interestUserList.get(i)) && !Driver.currentUser.equals(interestUserList.get(i))) {
 				resultList.add(interestUserList.get(i));
 			}
 		}
