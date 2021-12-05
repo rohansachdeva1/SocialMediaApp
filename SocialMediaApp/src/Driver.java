@@ -14,7 +14,7 @@ public class Driver {
 
 	public static void main(String[] args) {		
 		boolean loginStatus = false;
-		boolean createUserStatus = false;
+		boolean createUserStatus = false; // Check if new User is created, only when is created, we will call writeToFile
 		int choice;
 //		Scanner sc = new Scanner(System.in);
 		database = new Database();
