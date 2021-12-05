@@ -185,7 +185,6 @@ public class User implements Comparable<User>{
 	}
 
 	public void addFriend(User toBeAddedUser) {
-		System.out.println("inside user class adding friend");
 		Database.addFriend(this, toBeAddedUser);
 	}
 

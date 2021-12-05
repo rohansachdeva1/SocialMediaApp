@@ -249,13 +249,15 @@ public class Database {
 
         distance.set(source, 0);
         Q.addLast(source);
-
+        System.out.println("passed 1");
         while (Q.isEmpty() == false) {
+        	System.out.println("passed 2");
             int x = (int)Q.getFirst();
             Q.removeFirst();
             allUsers.get(x).positionIterator();
 
             while (allUsers.get(x).offEnd() == false) {
+            	System.out.println("passed 3");
 				// if user has not been visited, set distance in distance arraylist
                 if (distance.get(allUsers.get(x).getIterator()) == -1) {
                     distance.set(allUsers.get(x).getIterator(), distance.get(x) + 1);
@@ -267,6 +269,7 @@ public class Database {
 						int count = 0;
 
 						while (userList.get(source).getInterests().offEnd() != true && userList.get(x).getInterests().offEnd() != true) {
+							System.out.println("passed 4");
 							if (userList.get(source).getInterests().getIterator().compareTo(userList.get(x).getInterests().getIterator()) == 0) {
 								count++;
 							}
@@ -283,7 +286,7 @@ public class Database {
         }
     }
 
-	public static int calcHighestIndex(ArrayList input) {
+	public static int calcHighestIndex(ArrayList<Integer> input) {
 		int highest = Collections.max(input);
 		int index = input.indexOf(highest);
 		return index;
@@ -293,15 +296,13 @@ public class Database {
 	public static ArrayList<User> getRecommendation(Integer source) {
 		ArrayList<User> answer = new ArrayList<>(); // linked list of users in order of final recommendation
 		BFS(source); // call BFS on user graph, update distance and interestScore arraylists
-
 		// add eligible users to linked list in order of most interests shared
 		int highestIndex = calcHighestIndex(interestScore);
-		while (highestIndex != -1) {
+		while (Collections.max(interestScore) != -1) {
 			answer.add(userList.get(highestIndex)); // change here
 			interestScore.set(highestIndex, -1);
 			highestIndex = calcHighestIndex(interestScore);
 		}
-
 		return answer;
 	}
 	
@@ -366,7 +367,6 @@ public class Database {
 	 * ------------------------Finished-----------------------------
 	 */
 	public static void addFriend(User originalUser, User toBeAddedUser) {
-		System.out.println("inside database adding friend");
 		LinkedList<Integer> userLinkedList = allUsers.get(originalUser.getId()); 
 		LinkedList<Integer> friendLinkedList = allUsers.get(toBeAddedUser.getId()); 
 
