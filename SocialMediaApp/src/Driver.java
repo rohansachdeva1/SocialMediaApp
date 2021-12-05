@@ -10,11 +10,12 @@ import java.util.Scanner;
 public class Driver {
 	static Database database;
 	static User currentUser;
+	static Scanner sc = new Scanner(System.in);
 
 	public static void main(String[] args) {		
 		boolean loginStatus = false;
 		int choice;
-		Scanner sc = new Scanner(System.in);
+//		Scanner sc = new Scanner(System.in);
 		database = new Database();
 		
 		while (!loginStatus) {
@@ -84,7 +85,7 @@ public class Driver {
 		int index;
 		User selectedUser;
 		Boolean exitStatus = false;
-		Scanner sc = new Scanner(System.in);
+//		Scanner sc = new Scanner(System.in);
 		while (!exitStatus) {
 			System.out.println("Enter the following options ('1', '2' or '3'): ");
 			System.out.println("1. View sorted friend list");
@@ -146,7 +147,7 @@ public class Driver {
 				break;
 			}
 		}
-		sc.close();
+//		sc.close();
 		
 	}
 	
@@ -160,7 +161,7 @@ public class Driver {
 		User selectedUser;
 		ArrayList<User> searchResult;
 		Boolean exitStatus = false;
-		Scanner sc = new Scanner(System.in);
+//		Scanner sc = new Scanner(System.in);
 		while (!exitStatus) {
 			System.out.println("Enter the following options ('1', '2' or '3'): ");
 			System.out.println("1. Search users by name ");
@@ -247,7 +248,7 @@ public class Driver {
 				break;
 			}
 		}
-		sc.close();
+//		sc.close();
 	}
 	
 	
