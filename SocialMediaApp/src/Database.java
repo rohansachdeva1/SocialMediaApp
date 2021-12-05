@@ -112,11 +112,10 @@ public class Database {
 					int interestID = interestHash.hash(interestName);
 					Interest tempInterestObj = new Interest(interestName, interestID);
 					interestLinkedList.addLast(tempInterestObj); // add interest object to linked list
-					
-					if (interestHash.search(tempInterestObj) != null) {
+					if (interestHash.search(tempInterestObj) == null) {
 						interestHash.insert(tempInterestObj); // add interest object to hash table storing interest
-						interests.get(interestID).insert(newUser); // add userID to interest BST
 					}
+					interests.get(interestID).insert(newUser); // add userID to interest BST
 				} // NEEDS WORK creating interest ob
 				newUser.setInterests(interestLinkedList);
 				// Create new user from input data -- with empty friendlist
@@ -323,14 +322,6 @@ public class Database {
 	 * ------------------------Needs testing-----------------------------
 	 */
 	public ArrayList<User> searchUserByInterest(String targetInterestName, User currUser){
-//		Interest tmpInterest = new Interest(targetInterestName, interestHash.hash(targetInterestName));
-//		Interest resultInterest = interestHash.searchInterest(tmpInterest);
-//		if (resultInterest != null) { 
-//			int index = resultInterest.getId();
-//			return interests.get(index).inOrderData();
-//		} else { 
-//			return null;
-//		}
 		BST<User> temp = interests.get(interestHash.hash(targetInterestName));
 		ArrayList<User> interestUserList = temp.inOrderData();
 		System.out.println("interestUserList: " + interestUserList.toString());

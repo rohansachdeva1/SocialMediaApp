@@ -99,7 +99,7 @@ public class HashTable<T extends Comparable<T>> {
 		}
 		Table.get(bucket).positionIterator();
 		for (int i = 0; i < Table.get(bucket).getLength(); i++) {
-			if (Table.get(bucket).getIterator().equals(t)) {
+			if (Table.get(bucket).getIterator().compareTo(t) == 0) {
 				return Table.get(bucket).getIterator();
 			}
 			try {
