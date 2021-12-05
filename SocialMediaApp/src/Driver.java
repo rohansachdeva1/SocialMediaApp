@@ -53,13 +53,16 @@ public class Driver {
 				break;
 			case 3:
 				System.exit(0); //exit the program
+			default:
+				System.out.println("Invalid input. Please enter the option number only.");
+				break;
 			}
 			while (loginStatus) {
 				System.out.println("Enter the  option number ('1', '2' or '3'): ");
 				System.out.println("1: View my friends");
 				System.out.println("2: Make new friend");
 				System.out.println("3: Exit");
-				choice = Integer.parseInt(sc.nextLine()); //could give some exception handling
+				choice = Integer.parseInt(sc.nextLine());
 				switch(choice) {
 				case 1:
 					viewFriend();
@@ -68,10 +71,11 @@ public class Driver {
 					makeFriendsOutsideOfTheCircle();
 					break;
 				case 3:
-					if (createUserStatus) {
-						Database.writeToFile();
-					}
+					Database.writeToFile();
 					loginStatus = false;
+					break;
+				default:
+					System.out.println("Invalid input. Please enter the option number only.");
 					break;
 				}
 				
@@ -89,7 +93,6 @@ public class Driver {
 		int index;
 		User selectedUser;
 		Boolean exitStatus = false;
-//		Scanner sc = new Scanner(System.in);
 		while (!exitStatus) {
 			System.out.println("Enter the following options ('1', '2' or '3'): ");
 			System.out.println("1. View sorted friend list");
@@ -99,6 +102,10 @@ public class Driver {
 			switch (choice) {
 			case 1: //view sorted friend
 				ArrayList<User> sortedFriendList = currentUser.getSortedFriendArrayList();//sort by name
+				if (sortedFriendList.size() == 0) {
+					System.out.println("No user is found. Going back to the previous page.");
+					break;
+				}	
 				displayArrayListUser(sortedFriendList);
 				
 				System.out.println("Enter the friend number ('1', '2', '3' etc.): ");
@@ -118,13 +125,19 @@ public class Driver {
 				case 2:
 					//go back
 					break;
+				default:
+					System.out.println("Invalid input. Please enter the option number only.");
+					break;
 				}
 				break;
 			case 2: //search friend
-				//search by name
 				System.out.println("Enter the name that you would like to search: ");
 				String targetName = sc.nextLine();
 				ArrayList<User> searchResult = currentUser.searchFromFriendList(targetName);
+				if (searchResult.size() == 0) {
+					System.out.println("No user is found. Going back to the previous page.");
+					break;
+				}	
 				displayArrayListUser(searchResult);
 				
 				System.out.println("Enter the friend number ('1', '2', '3' etc.): ");
@@ -144,15 +157,19 @@ public class Driver {
 				case 2:
 					//go back
 					break;
+				default:
+					System.out.println("Invalid input. Please enter the option number only.");
+					break;
 				}
 				break;
 			case 3:
 				exitStatus = true;
 				break;
+			default:
+				System.out.println("Invalid input. Please enter the option number only.");
+				break;
 			}
 		}
-//		sc.close();
-		
 	}
 	
 	/* Helper method to add friends outside of current user's network
@@ -165,7 +182,6 @@ public class Driver {
 		User selectedUser;
 		ArrayList<User> searchResult;
 		Boolean exitStatus = false;
-//		Scanner sc = new Scanner(System.in);
 		while (!exitStatus) {
 			System.out.println("Enter the following options ('1', '2' or '3'): ");
 			System.out.println("1. Search users by name ");
@@ -178,6 +194,10 @@ public class Driver {
 				System.out.println("Enter the name that you would like to search: ");
 				String targetName = sc.nextLine();
 				searchResult = database.searchUserByName(targetName, currentUser);
+				if (searchResult.size() == 0) {
+					System.out.println("No user is found. Going back to the previous page.");
+					break;
+				}		
 				System.out.println("search result" + searchResult.toString());
 				displayArrayListUser(searchResult);
 				
@@ -193,8 +213,13 @@ public class Driver {
 				switch(choice) {
 				case 1:
 					System.out.println("adding friend");
-
 					currentUser.addFriend(selectedUser);
+					break;
+				case 2:
+					//go back
+					break;
+				default:
+					System.out.println("Invalid input. Please enter the option number only.");
 					break;
 				}
 				break;
@@ -203,6 +228,10 @@ public class Driver {
 				String targetInterest = sc.nextLine();
 				searchResult = database.searchUserByInterest(targetInterest, currentUser);
 				System.out.println("interest search result: " + searchResult.toString());
+				if (searchResult.size() == 0) {
+					System.out.println("No user is found. Going back to the previous page.");
+					break;
+				}	
 				displayArrayListUser(searchResult);
 				
 				System.out.println("Enter the friend number ('1', '2', '3' etc.): ");
@@ -216,14 +245,15 @@ public class Driver {
 				choice = Integer.parseInt(sc.nextLine());
 				switch (choice) {
 				case 1:
-					//remove friend
 					currentUser.addFriend(selectedUser);
 					break;
 				case 2:
-					//go back
 					break;
-				
+				default:
+					System.out.println("Invalid input. Please enter the option number only.");
+					break;
 				}
+				break;
 			case 3:
 				ArrayList<User> recommendationResult = currentUser.getRecommendation(); //get recommendation from the user object
 				displayArrayListUser(recommendationResult);
@@ -239,20 +269,23 @@ public class Driver {
 				choice = Integer.parseInt(sc.nextLine());
 				switch (choice) {
 				case 1:
-					//remove friend
 					currentUser.addFriend(selectedUser);
 					break;
 				case 2:
-					//go back
+					break;
+				default:
+					System.out.println("Invalid input. Please enter the option number only.");
 					break;
 				}
 				break;
 			case 4:
 				exitStatus = true;
 				break;
+			default:
+				System.out.println("Invalid input. Please enter the option number only.");
+				break;
 			}
 		}
-//		sc.close();
 	}
 	
 	
