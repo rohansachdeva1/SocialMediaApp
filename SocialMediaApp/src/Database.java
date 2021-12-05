@@ -249,15 +249,12 @@ public class Database {
 
         distance.set(source, 0);
         Q.addLast(source);
-        System.out.println("passed 1");
         while (Q.isEmpty() == false) {
-        	System.out.println("passed 2");
             int x = (int)Q.getFirst();
             Q.removeFirst();
             allUsers.get(x).positionIterator();
 
             while (allUsers.get(x).offEnd() == false) {
-            	System.out.println("passed 3");
 				// if user has not been visited, set distance in distance arraylist
                 if (distance.get(allUsers.get(x).getIterator()) == -1) {
                     distance.set(allUsers.get(x).getIterator(), distance.get(x) + 1);
@@ -269,7 +266,6 @@ public class Database {
 						int count = 0;
 
 						while (userList.get(source).getInterests().offEnd() != true && userList.get(x).getInterests().offEnd() != true) {
-							System.out.println("passed 4");
 							if (userList.get(source).getInterests().getIterator().compareTo(userList.get(x).getInterests().getIterator()) == 0) {
 								count++;
 							}
