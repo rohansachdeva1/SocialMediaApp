@@ -325,7 +325,6 @@ public class Database {
 	 */
 	public ArrayList<User> searchUserByInterest(String targetInterestName, User currUser){
 		BST<User> temp = interests.get(interestHash.hash(targetInterestName));
-		System.out.println("interests: " + interestHash.toString());
 		ArrayList<User> interestUserList = temp.inOrderData();
 		System.out.println("interestUserList: " + interestUserList.toString());
 		ArrayList<User> userFriendList = currUser.getSortedFriendArrayList();
