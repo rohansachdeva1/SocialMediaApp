@@ -84,9 +84,8 @@ public class Driver {
 		int index;
 		User selectedUser;
 		Boolean exitStatus = false;
-		
+		Scanner sc = new Scanner(System.in);
 		while (!exitStatus) {
-			Scanner sc = new Scanner(System.in);
 			System.out.println("Enter the following options ('1', '2' or '3'): ");
 			System.out.println("1. View sorted friend list");
 			System.out.println("2. Search friends by their names");
@@ -100,20 +99,22 @@ public class Driver {
 				System.out.println("Enter the friend number ('1', '2', '3' etc.): ");
 				index = Integer.parseInt(sc.nextLine());
 				
-				selectedUser = getSelectedUser(sortedFriendList, index);
+				selectedUser = getSelectedUser(sortedFriendList, index - 1);
 				selectedUser.displayUserProfile();
 				System.out.println("Enter the following options ('1' or '2'): ");
 				System.out.println("1. Remove this friend");
-				System.out.println("Go back to the previous page");
+				System.out.println("2. Go back to the previous page");
 				choice = Integer.parseInt(sc.nextLine());
 				switch (choice) {
 				case 1:
 					//remove friend
 					currentUser.removeFriend(selectedUser);
+					break;
 				case 2:
 					//go back
+					break;
 				}
-				
+				break;
 			case 2: //search friend
 				//search by name
 				System.out.println("Enter the name that you would like to search: ");
@@ -124,7 +125,7 @@ public class Driver {
 				System.out.println("Enter the friend number ('1', '2', '3' etc.): ");
 				index = Integer.parseInt(sc.nextLine());
 				
-				selectedUser = getSelectedUser(searchResult, index);
+				selectedUser = getSelectedUser(searchResult, index - 1);
 				selectedUser.displayUserProfile();
 				System.out.println("Enter the following options ('1' or '2'): ");
 				System.out.println("1. Remove this friend");
@@ -134,16 +135,18 @@ public class Driver {
 				case 1:
 					//remove friend
 					currentUser.removeFriend(selectedUser);
+					break;
 				case 2:
 					//go back
+					break;
 				}
-				
+				break;
 			case 3:
 				exitStatus = true;
-				
+				break;
 			}
-			sc.close();
 		}
+		sc.close();
 		
 	}
 	
@@ -162,7 +165,8 @@ public class Driver {
 			System.out.println("Enter the following options ('1', '2' or '3'): ");
 			System.out.println("1. Search users by name ");
 			System.out.println("2. Search users by interest");
-			System.out.println("3. Go back to the previous page");
+			System.out.println("3. Get recommendation");
+			System.out.println("4. Go back to the previous page");
 			choice = Integer.parseInt(sc.nextLine());
 			switch (choice) {
 			case 1:
@@ -175,7 +179,7 @@ public class Driver {
 				System.out.println("Enter the friend number ('1', '2', '3' etc.): ");
 				index = Integer.parseInt(sc.nextLine());
 				
-				selectedUser = getSelectedUser(searchResult, index);
+				selectedUser = getSelectedUser(searchResult, index - 1);
 				selectedUser.displayUserProfile();
 				System.out.println("Enter the following options ('1' or '2'): ");
 				System.out.println("1. add this user");
@@ -199,7 +203,7 @@ public class Driver {
 				System.out.println("Enter the friend number ('1', '2', '3' etc.): ");
 				index = Integer.parseInt(sc.nextLine());
 				
-				selectedUser = getSelectedUser(searchResult, index);
+				selectedUser = getSelectedUser(searchResult, index - 1);
 				selectedUser.displayUserProfile();
 				System.out.println("Enter the following options ('1' or '2'): ");
 				System.out.println("1. add this user");
@@ -222,7 +226,7 @@ public class Driver {
 				System.out.println("Enter the friend number ('1', '2', '3' etc.): ");
 				index = Integer.parseInt(sc.nextLine());
 				
-				selectedUser = getSelectedUser(recommendationResult, index);
+				selectedUser = getSelectedUser(recommendationResult, index - 1);
 				selectedUser.displayUserProfile();
 				System.out.println("Enter the following options ('1' or '2'): ");
 				System.out.println("1. add this user");
@@ -253,7 +257,7 @@ public class Driver {
 		System.out.println("inputArrayList: " + inputArrayList.toString());
 		for (int i = 0; i < inputArrayList.size(); i++) {
 			User userFromCurrentIndex = inputArrayList.get(i);
-			System.out.println(i + ": " + userFromCurrentIndex.getFirstName() + " " + userFromCurrentIndex.getLastName());
+			System.out.println(i+1 + ": " + userFromCurrentIndex.getFirstName() + " " + userFromCurrentIndex.getLastName());
 		}
 	}
 	
