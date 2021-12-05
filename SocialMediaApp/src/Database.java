@@ -138,7 +138,9 @@ public class Database {
 			
 			// Add User objects to each User's friend list
 			for (int k = 1 ; k < userList.size() ; k++) { // here k is the index of userList, which is equal to user id
-				allUsers.get(k).positionIterator(); //position iterator to front of the User k's friends linkedlist
+				try {
+					allUsers.get(k).positionIterator(); //position iterator to front of the User k's friends linkedlist
+				} catch(Exception e) {}
 				for (int l = 0 ; l < allUsers.get(numUsers).getLength(); l++) { // this loop is used to get the friends' id for each user
 					int friendToAddID = allUsers.get(k).getIterator(); //getting the ID of the friend
 					User friendToAddObj = userList.get(friendToAddID); //getting the user object of that friend using ID#
@@ -201,13 +203,17 @@ public class Database {
 		int numInterests = currUser.getInterests().getLength();
 		try {
 			PrintWriter out = new PrintWriter("data.txt");
-			out.print(currentFileContents + "\n" + currUser.getId() + "\n" + currUser.getFirstName() + " " + currUser.getLastName() + "\n" + currUser.getPassword() + "\n" + currUser.getCity() + "\n" + numFriends);
+			out.print(currentFileContents + currUser.getId() + "\n" + currUser.getFirstName() + " " + currUser.getLastName() + "\n" + currUser.getUserName() + "\n" + currUser.getPassword() + "\n" + numFriends + "\n" + currUser.getCity());
 			for (int i = 0; i < numFriends; i++) {
 				out.print("\n" + currUser.getSortedFriendArrayList().get(i));
 			}
 			out.print("\n" + numInterests);
+			if (numInterests != 0) {
+				currUser.getInterests().positionIterator();
+			}
 			for (int i = 0; i < numInterests; i++) {
-				out.print("\n" + currUser.getInterests().toString());
+				out.print("\n" + currUser.getInterests().getIterator().toString());
+				currUser.getInterests().advanceIterator();
 			}
 			out.close();
 		} catch (FileNotFoundException e) {

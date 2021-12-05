@@ -14,6 +14,7 @@ public class Driver {
 
 	public static void main(String[] args) {		
 		boolean loginStatus = false;
+		boolean createUserStatus = false;
 		int choice;
 //		Scanner sc = new Scanner(System.in);
 		database = new Database();
@@ -48,6 +49,7 @@ public class Driver {
 				currentUser = database.createUser(); //should create a new user, then this becomes the current user.
 				System.out.println();
 				loginStatus = true;
+				createUserStatus = true;
 				break;
 			case 3:
 				System.exit(0); //exit the program
@@ -66,7 +68,9 @@ public class Driver {
 					makeFriendsOutsideOfTheCircle();
 					break;
 				case 3:
-					Database.writeToFile();
+					if (createUserStatus) {
+						Database.writeToFile();
+					}
 					loginStatus = false;
 					break;
 				}
