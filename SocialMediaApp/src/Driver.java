@@ -241,8 +241,8 @@ public class Driver {
 				case 2:
 					//go back
 					break;
-				
 				}
+				break;
 			case 4:
 				exitStatus = true;
 				break;
