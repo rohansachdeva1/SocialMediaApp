@@ -123,14 +123,6 @@ public class Database {
 				distance.add(-1);
 				interestScore.add(-1);
 				userHash.insert(newUser);
-
-				// Loop through interests linked list and add user to each interest in interest arraylist BST
-				interestLinkedList.positionIterator();
-				while (interestLinkedList.getIterator() != interestLinkedList.getLast()) {
-					int position = interestLinkedList.getIterator().getId();
-					interests.get(position).insert(newUser);
-					interestLinkedList.advanceIterator();
-				}
 				
 				// Add the newly created user to the BST that store all user, sorted by name
 				userBST.insert(newUser);
@@ -159,6 +151,9 @@ public class Database {
 	 * 
 	 */
 	public User createUser() {
+		//generate a new user ID after the largest user ID in the database
+		numUsers++;
+		int userID = numUsers; 
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Please enter your first name: ");
 		String firstName = sc.nextLine();
@@ -170,24 +165,27 @@ public class Database {
 		String password = sc.nextLine();
 		System.out.println("Please enter your city: ");
 		String city = sc.nextLine();
+		User newUser = new User(userID, firstName, lastName, userName, password, city);
 		boolean endOfInterest = false;
 		LinkedList<Interest> interestLinkedList = new LinkedList<>();
 		 while (!endOfInterest) {
 			System.out.println("Please enter your interests (enter '0' if there is not more interest to add): ");
 			String interest = sc.nextLine();		
 			if (!interest.equals("0")) {
-                Interest tempI = new Interest(interest, interestHash.hash(interest));
-                interestLinkedList.addLast(tempI);
+				int interestID = interestHash.hash(interest);
+				Interest tempInterestObj = new Interest(interest, interestID);
+				interestLinkedList.addLast(tempInterestObj); // add interest object to linked list
+				if (interestHash.search(tempInterestObj) == null) {
+					interestHash.insert(tempInterestObj); // add interest object to hash table storing interest
+				}
+				interests.get(interestID).insert(newUser);
             } else {
                 endOfInterest = true;
             }
 		}
-		//generate a new user ID after the largest user ID in the database
-		numUsers++;
-		int userID = numUsers; 
+		newUser.setInterests(interestLinkedList);
 		
 		//BST friendBST = new BST(); // should start with no friends, then the user can add friends
-		User newUser = new User(userID, firstName, lastName, userName, password, city, interestLinkedList);
 		allUsers.add(new LinkedList<Integer>());
 		userList.add(newUser); //To graph team: Do you mean to insert UserId?
 		userHash.insert(newUser);
@@ -203,10 +201,11 @@ public class Database {
 		int numInterests = currUser.getInterests().getLength();
 		try {
 			PrintWriter out = new PrintWriter("data.txt");
-			out.print(currentFileContents + currUser.getId() + "\n" + currUser.getFirstName() + " " + currUser.getLastName() + "\n" + currUser.getUserName() + "\n" + currUser.getPassword() + "\n" + numFriends + "\n" + currUser.getCity());
+			out.print(currentFileContents + currUser.getId() + "\n" + currUser.getFirstName() + " " + currUser.getLastName() + "\n" + currUser.getUserName() + "\n" + currUser.getPassword() + "\n" + numFriends);
 			for (int i = 0; i < numFriends; i++) {
-				out.print("\n" + currUser.getSortedFriendArrayList().get(i));
+				out.print("\n" + currUser.getSortedFriendArrayList().get(i).getId());
 			}
+			out.print("\n" + currUser.getCity());
 			out.print("\n" + numInterests);
 			if (numInterests != 0) {
 				currUser.getInterests().positionIterator();
@@ -326,6 +325,7 @@ public class Database {
 	 */
 	public ArrayList<User> searchUserByInterest(String targetInterestName, User currUser){
 		BST<User> temp = interests.get(interestHash.hash(targetInterestName));
+		System.out.println("interests: " + interestHash.toString());
 		ArrayList<User> interestUserList = temp.inOrderData();
 		System.out.println("interestUserList: " + interestUserList.toString());
 		ArrayList<User> userFriendList = currUser.getSortedFriendArrayList();

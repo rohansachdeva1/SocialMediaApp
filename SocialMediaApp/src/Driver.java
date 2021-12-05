@@ -71,7 +71,10 @@ public class Driver {
 					makeFriendsOutsideOfTheCircle();
 					break;
 				case 3:
-					Database.writeToFile();
+					if (createUserStatus) {
+						Database.writeToFile();
+						createUserStatus = false;
+					}
 					loginStatus = false;
 					break;
 				default:
