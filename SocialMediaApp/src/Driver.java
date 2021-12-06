@@ -254,12 +254,18 @@ public class Driver {
 				break;
 			case 3:
 				ArrayList<User> recommendationResult = currentUser.getRecommendation(); //get recommendation from the user object
-				displayArrayListUser(recommendationResult);
+				ArrayList<User> resultList = new ArrayList<>();
+				for (int i = 0; i < recommendationResult.size(); i++) {
+					if (!currentUser.getSortedFriendArrayList().contains(recommendationResult.get(i)) && !currentUser.equals(recommendationResult.get(i))) {
+						resultList.add(recommendationResult.get(i));
+					}
+				}
+				displayArrayListUser(resultList);
 				
 				System.out.println("Enter the friend number ('1', '2', '3' etc.): ");
 				index = Integer.parseInt(sc.nextLine());
 				
-				selectedUser = getSelectedUser(recommendationResult, index - 1);
+				selectedUser = getSelectedUser(resultList, index - 1);
 				selectedUser.displayUserProfile();
 				System.out.println("Enter the following options ('1' or '2'): ");
 				System.out.println("1. add this user");
