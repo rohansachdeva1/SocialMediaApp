@@ -307,6 +307,42 @@ public class Database {
 		}
 		return answer;
 	}
+
+	public static ArrayList<User> getNoFriendsRecommendation(Integer currId) {
+		ArrayList<User> answer = new ArrayList<>();
+		int count = 0;
+
+		for (int i = 1; i <= numUsers; i++) {
+            interestScore.set(i, -1);
+        }
+
+		for (int i = 1; i <= numUsers; i++) {
+			if (i != currId) {
+				userList.get(currId).getInterests().positionIterator();
+				userList.get(i).getInterests().positionIterator();
+
+				while (userList.get(currId).getInterests().offEnd() != true && userList.get(i).getInterests().offEnd() != true) {
+					if (userList.get(source).getInterests().getIterator().compareTo(userList.get(x).getInterests().getIterator()) == 0) {
+						count++;
+					}
+
+					userList.get(currId).getInterests().advanceIterator();
+					userList.get(i).getInterests().advanceIterator();
+				}
+				interestScore.set(i, count);
+				count = 0;
+			}
+		}
+
+		int highestIndex = calcHighestIndex(interestScore);
+		while (Collections.max(interestScore) != -1 && answer.size() < 10) {
+			answer.add(userList.get(highestIndex)); 
+			interestScore.set(highestIndex, -1);
+			highestIndex = calcHighestIndex(interestScore);
+		}
+		return answer;
+
+	}
 	
 	/* 
 	 * ------------------------Complete-----------------------------

@@ -138,6 +138,9 @@ public class User implements Comparable<User>{
 		this.friends.remove(friend);
 	}
 	
+	public boolean hasNoFriends() {
+		return (this.getFriends().isEmpty() == true);
+	}
 	
 	
 	/*
@@ -180,8 +183,12 @@ public class User implements Comparable<User>{
 	
 	// possibly pass in database as a parameter from the driver and then call the database method on it
 	public ArrayList<User> getRecommendation() {
-		ArrayList<User> result = Database.getRecommendation(this.getId());
-		return result;
+		if (this.hasNoFriends() == false) {
+			return Database.getRecommendation(this.getId());
+		}
+		else {
+			return Database.getNoFriendsRecommendation(this.getId());
+		}
 	}
 
 	public void addFriend(User toBeAddedUser) {
