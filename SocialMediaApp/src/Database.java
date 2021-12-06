@@ -195,24 +195,28 @@ public class Database {
 	
 	//save file when we call the quit method
 	public static void writeToFile() {
-		String currentFileContents = getCurrentFileContentsAsString();
-		User currUser = (User) Driver.currentUser;
-		int numFriends = currUser.getSortedFriendArrayList().size();
-		int numInterests = currUser.getInterests().getLength();
 		try {
 			PrintWriter out = new PrintWriter("data.txt");
-			out.print(currentFileContents + currUser.getId() + "\n" + currUser.getFirstName() + " " + currUser.getLastName() + "\n" + currUser.getUserName() + "\n" + currUser.getPassword() + "\n" + numFriends);
-			for (int i = 0; i < numFriends; i++) {
-				out.print("\n" + currUser.getSortedFriendArrayList().get(i).getId());
-			}
-			out.print("\n" + currUser.getCity());
-			out.print("\n" + numInterests);
-			if (numInterests != 0) {
-				currUser.getInterests().positionIterator();
-			}
-			for (int i = 0; i < numInterests; i++) {
-				out.print("\n" + currUser.getInterests().getIterator().toString());
-				currUser.getInterests().advanceIterator();
+			for (int i = 1; i < userList.size(); i++) {
+				User currUser = userList.get(i);
+				int numFriends = currUser.getSortedFriendArrayList().size();
+				int numInterests = currUser.getInterests().getLength();
+				out.print(currUser.getId() + "\n" + currUser.getFirstName() + " " + currUser.getLastName() + "\n" + currUser.getUserName() + "\n" + currUser.getPassword() + "\n" + numFriends);
+				for (int j = 0; j < numFriends; j++) {
+					out.print("\n" + currUser.getSortedFriendArrayList().get(j).getId());
+				}
+				out.print("\n" + currUser.getCity());
+				out.print("\n" + numInterests);
+				if (numInterests != 0) {
+					currUser.getInterests().positionIterator();
+				}
+				for (int j = 0; j < numInterests; j++) {
+					out.print("\n" + currUser.getInterests().getIterator().toString());
+					currUser.getInterests().advanceIterator();
+				}
+				if (i != userList.size() - 1) {
+					out.print("\n");
+				}
 			}
 			out.close();
 		} catch (FileNotFoundException e) {
