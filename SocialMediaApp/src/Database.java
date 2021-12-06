@@ -190,6 +190,8 @@ public class Database {
 		userList.add(newUser); //To graph team: Do you mean to insert UserId?
 		userHash.insert(newUser);
 		userBST.insert(newUser);
+		distance.add(-1);
+		interestScore.add(-1);
 		return newUser;
 	}
 	
@@ -262,8 +264,9 @@ public class Database {
                 if (distance.get(allUsers.get(x).getIterator()) == -1) {
                     distance.set(allUsers.get(x).getIterator(), distance.get(x) + 1);
 
-					// calculate interest score between source and current user, store in interestScore arraylist
-					if (distance.get(allUsers.get(x).getIterator()) > 1) {
+					
+                    // calculate interest score between source and current user, store in interestScore arraylist
+                   if (distance.get(allUsers.get(x).getIterator()) > 2) {
 						userList.get(source).getInterests().positionIterator();
 						userList.get(x).getInterests().positionIterator();
 						int count = 0;
