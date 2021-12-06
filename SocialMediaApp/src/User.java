@@ -58,7 +58,6 @@ public class User implements Comparable<User>{
 		this.city = city;
 		this.friends = new BST<>();
 		this.interests = interests;
-		System.out.println("I'm here!");
 	}
 
 	public User(int id, String firstName, String lastName, String userName, String password, String city,
@@ -223,12 +222,5 @@ public class User implements Comparable<User>{
         else
             return lastName.compareTo(o.lastName);
 	}
-    
-    
-    
-    
-    
-    
-    
 }
 

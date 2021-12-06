@@ -322,7 +322,7 @@ public class Database {
 				userList.get(i).getInterests().positionIterator();
 
 				while (userList.get(currId).getInterests().offEnd() != true && userList.get(i).getInterests().offEnd() != true) {
-					if (userList.get(source).getInterests().getIterator().compareTo(userList.get(x).getInterests().getIterator()) == 0) {
+					if (userList.get(currId).getInterests().getIterator().compareTo(userList.get(i).getInterests().getIterator()) == 0) {
 						count++;
 					}
 
