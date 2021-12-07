@@ -58,7 +58,7 @@ public class Driver {
 				System.out.println("\nUser menu (Select '1', '2' or '3'): ");
 				System.out.println("1: View my friends");
 				System.out.println("2: Make new friend");
-				System.out.println("3: Exit");
+				System.out.println("3: Log out");
 				choice = Integer.parseInt(sc.nextLine());
 				switch(choice) {
 				case 1:
