@@ -19,7 +19,7 @@ public class Driver {
 		database = new Database();
 		
 		while (!loginStatus) {
-			System.out.println("Choose the option number ('1', '2' or '3'): ");
+			System.out.println("Select an option ('1', '2' or '3'): ");
 			System.out.println("1: Login");
 			System.out.println("2: Create Account");
 			System.out.println("3: Exit");
@@ -31,7 +31,7 @@ public class Driver {
 				 * Please also return the logged in user
 				 * might want to return to the main menu if login fail 
 				 */
-				System.out.println("Login: ");
+				System.out.println("\nLogin: ");
 				System.out.println("Please enter your username: ");
 				String username = sc.nextLine();
 				System.out.println("Please enter your password: ");
@@ -46,7 +46,6 @@ public class Driver {
 				break;
 			case 2:
 				currentUser = database.createUser(); //should create a new user, then this becomes the current user.
-				System.out.println();
 				loginStatus = true;
 				break;
 			case 3:
@@ -56,7 +55,7 @@ public class Driver {
 				break;
 			}
 			while (loginStatus) {
-				System.out.println("Enter the  option number ('1', '2' or '3'): ");
+				System.out.println("\nUser menu (Select '1', '2' or '3'): ");
 				System.out.println("1: View my friends");
 				System.out.println("2: Make new friend");
 				System.out.println("3: Exit");
@@ -92,7 +91,7 @@ public class Driver {
 		User selectedUser;
 		Boolean exitStatus = false;
 		while (!exitStatus) {
-			System.out.println("Enter the following options ('1', '2' or '3'): ");
+			System.out.println("\nEnter the following options ('1', '2' or '3'): ");
 			System.out.println("1. View sorted friend list");
 			System.out.println("2. Search friends by their names");
 			System.out.println("3. Go back to the previous page");
@@ -101,23 +100,26 @@ public class Driver {
 			case 1: //view sorted friend
 				ArrayList<User> sortedFriendList = currentUser.getSortedFriendArrayList();//sort by name
 				if (sortedFriendList.size() == 0) {
-					System.out.println("No user is found. Going back to the previous page.");
+					System.out.println("\nNo user was found. Returning to previous page.");
 					break;
-				}	
-				displayArrayListUser(sortedFriendList);
+				} else {
+					System.out.println("\nFriends list:");
+					displayArrayListUser(sortedFriendList);
+				}
 				
-				System.out.println("Enter the friend number ('1', '2', '3' etc.): ");
+				System.out.println("\nSelect the user you would like to view ('1', '2', '3' etc.): ");
 				index = Integer.parseInt(sc.nextLine());
 				
 				selectedUser = getSelectedUser(sortedFriendList, index - 1);
 				selectedUser.displayUserProfile();
-				System.out.println("Enter the following options ('1' or '2'): ");
+				System.out.println("\nWhat would you like to do? ('1' or '2'): ");
 				System.out.println("1. Remove this friend");
 				System.out.println("2. Go back to the previous page");
 				choice = Integer.parseInt(sc.nextLine());
 				switch (choice) {
 				case 1:
 					//remove friend
+					System.out.println("\nRemoved friend");
 					currentUser.removeFriend(selectedUser);
 					break;
 				case 2:
@@ -129,27 +131,28 @@ public class Driver {
 				}
 				break;
 			case 2: //search friend
-				System.out.println("Enter the name that you would like to search: ");
+				System.out.println("\nEnter the name that you would like to search: ");
 				String targetName = sc.nextLine();
 				ArrayList<User> searchResult = currentUser.searchFromFriendList(targetName);
 				if (searchResult.size() == 0) {
-					System.out.println("No user is found. Going back to the previous page.");
+					System.out.println("\nNo user is found. Returning to the previous page.");
 					break;
 				}	
 				displayArrayListUser(searchResult);
 				
-				System.out.println("Enter the friend number ('1', '2', '3' etc.): ");
+				System.out.println("\nSelect the user you would like to add ('1', '2', '3' etc.): ");
 				index = Integer.parseInt(sc.nextLine());
 				
 				selectedUser = getSelectedUser(searchResult, index - 1);
 				selectedUser.displayUserProfile();
-				System.out.println("Enter the following options ('1' or '2'): ");
+				System.out.println("\nWould you like to remove friend? ('1' or '2'): ");
 				System.out.println("1. Remove this friend");
 				System.out.println("2. Go back to the previous page");
 				choice = Integer.parseInt(sc.nextLine());
 				switch (choice) {
 				case 1:
 					//remove friend
+					System.out.println("\nRemoved friend");
 					currentUser.removeFriend(selectedUser);
 					break;
 				case 2:
@@ -181,7 +184,7 @@ public class Driver {
 		ArrayList<User> searchResult;
 		Boolean exitStatus = false;
 		while (!exitStatus) {
-			System.out.println("Enter the following options ('1', '2' or '3'): ");
+			System.out.println("\nEnter the following options ('1', '2' or '3'): ");
 			System.out.println("1. Search users by name ");
 			System.out.println("2. Search users by interest");
 			System.out.println("3. Get recommendation");
@@ -189,28 +192,28 @@ public class Driver {
 			choice = Integer.parseInt(sc.nextLine());
 			switch (choice) {
 			case 1:
-				System.out.println("Enter the name that you would like to search: ");
+				System.out.println("\nEnter the name that you would like to search: ");
 				String targetName = sc.nextLine();
 				searchResult = database.searchUserByName(targetName, currentUser);
 				if (searchResult.size() == 0) {
-					System.out.println("No user is found. Going back to the previous page.");
+					System.out.println("\nNo user is found. Returning to the previous page.");
 					break;
 				}		
-				System.out.println("search result" + searchResult.toString());
+				System.out.println("\nSearch results: ");
 				displayArrayListUser(searchResult);
 				
-				System.out.println("Enter the friend number ('1', '2', '3' etc.): ");
+				System.out.println("\nSelect the user you would like to add ('1', '2', '3' etc.): ");
 				index = Integer.parseInt(sc.nextLine());
 				
 				selectedUser = getSelectedUser(searchResult, index - 1);
 				selectedUser.displayUserProfile();
-				System.out.println("Enter the following options ('1' or '2'): ");
-				System.out.println("1. add this user");
+				System.out.println("\nWhat would you like to do? ('1' or '2'): ");
+				System.out.println("1. Add this user");
 				System.out.println("2. Go back to the previous page");
 				choice = Integer.parseInt(sc.nextLine());
 				switch(choice) {
 				case 1:
-					System.out.println("adding friend");
+					System.out.println("\nAdded friend. Returning to the previous page.");
 					currentUser.addFriend(selectedUser);
 					break;
 				case 2:
@@ -222,27 +225,29 @@ public class Driver {
 				}
 				break;
 			case 2:
-				System.out.println("Enter the interest that you would like to search: ");
+				System.out.println("\nEnter the interest that you would like to search: ");
 				String targetInterest = sc.nextLine();
 				searchResult = database.searchUserByInterest(targetInterest, currentUser);
-				System.out.println("interest search result: " + searchResult.toString());
 				if (searchResult.size() == 0) {
-					System.out.println("No user is found. Going back to the previous page.");
+					System.out.println("\nNo user is found. Returning to the previous page.");
 					break;
-				}	
-				displayArrayListUser(searchResult);
+				} else {
+					System.out.println("\nSearch result: ");
+					displayArrayListUser(searchResult);
+				}
 				
-				System.out.println("Enter the friend number ('1', '2', '3' etc.): ");
+				System.out.println("\nSelect the user you would like to add ('1', '2', '3' etc.): ");
 				index = Integer.parseInt(sc.nextLine());
 				
 				selectedUser = getSelectedUser(searchResult, index - 1);
 				selectedUser.displayUserProfile();
-				System.out.println("Enter the following options ('1' or '2'): ");
-				System.out.println("1. add this user");
+				System.out.println("\nWhat would you like to do? ('1' or '2'): ");
+				System.out.println("1. Add this user");
 				System.out.println("2. Go back to the previous page");
 				choice = Integer.parseInt(sc.nextLine());
 				switch (choice) {
 				case 1:
+					System.out.println("\nAdded friend. Returning to the previous page.");
 					currentUser.addFriend(selectedUser);
 					break;
 				case 2:
@@ -254,20 +259,24 @@ public class Driver {
 				break;
 			case 3:
 				ArrayList<User> recommendationResult = currentUser.getRecommendation(); //get recommendation from the user object
+				
 				ArrayList<User> resultList = new ArrayList<>();
+				
+				System.out.println("\nHere is a list of recommended friends: ");
 				displayArrayListUser(recommendationResult);
 				
-				System.out.println("Enter the friend number ('1', '2', '3' etc.): ");
+				System.out.println("\nSelect the user you would like to add ('1', '2', '3' etc.): ");
 				index = Integer.parseInt(sc.nextLine());
 				
 				selectedUser = getSelectedUser(recommendationResult, index - 1);
 				selectedUser.displayUserProfile();
-				System.out.println("Enter the following options ('1' or '2'): ");
-				System.out.println("1. add this user");
+				System.out.println("\nWhat would you like to do? ('1' or '2'): ");
+				System.out.println("1. Add this user");
 				System.out.println("2. Go back to the previous page");
 				choice = Integer.parseInt(sc.nextLine());
 				switch (choice) {
 				case 1:
+					System.out.println("\nAdded friend. Returning to the previous page.");
 					currentUser.addFriend(selectedUser);
 					break;
 				case 2:
@@ -291,7 +300,6 @@ public class Driver {
 	
 	
 	public static void displayArrayListUser(ArrayList<User> inputArrayList) {
-		System.out.println("inputArrayList: " + inputArrayList.toString());
 		for (int i = 0; i < inputArrayList.size(); i++) {
 			User userFromCurrentIndex = inputArrayList.get(i);
 			System.out.println(i+1 + ": " + userFromCurrentIndex.getFirstName() + " " + userFromCurrentIndex.getLastName());

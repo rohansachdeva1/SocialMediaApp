@@ -342,10 +342,15 @@ public class LinkedList<T> {
         StringBuilder result = new StringBuilder();
         Node temp = first;
         while (temp != null) {
-        	result.append(temp.data + " ");
-        	temp = temp.next;
+        	if (temp.next == null) {
+        		result.append(temp.data);
+        		temp = temp.next;
+        	} else {
+            	result.append(temp.data + ", ");
+            	temp = temp.next;
+        	}
         }
-        return result.toString() + "\n";
+        return result.toString();
     }
     
     /**

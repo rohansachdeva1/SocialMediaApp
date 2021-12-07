@@ -155,7 +155,7 @@ public class Database {
 		numUsers++;
 		int userID = numUsers; 
 		Scanner sc = new Scanner(System.in);
-		System.out.println("Please enter your first name: ");
+		System.out.println("\nPlease enter your first name: ");
 		String firstName = sc.nextLine();
 		System.out.println("Please enter your last name: ");
 		String lastName = sc.nextLine();
@@ -180,6 +180,7 @@ public class Database {
 				}
 				interests.get(interestID).insert(newUser);
             } else {
+            	System.out.println("\nSuccessfully created user account!");
                 endOfInterest = true;
             }
 		}
@@ -348,7 +349,6 @@ public class Database {
 	 * ------------------------Complete-----------------------------
 	 */
 	public ArrayList<User> searchUserByName(String targetName, User currUser){
-		System.out.println("Searching: " + targetName);
 		ArrayList<User> userList = userBST.inOrderData();
 		ArrayList<User> userFriendList = currUser.getSortedFriendArrayList();
 		ArrayList<User> resultList = new ArrayList<>();
@@ -369,9 +369,7 @@ public class Database {
 	public ArrayList<User> searchUserByInterest(String targetInterestName, User currUser){
 		BST<User> temp = interests.get(interestHash.hash(targetInterestName));
 		ArrayList<User> interestUserList = temp.inOrderData();
-		System.out.println("interestUserList: " + interestUserList.toString());
 		ArrayList<User> userFriendList = currUser.getSortedFriendArrayList();
-		System.out.println("userFriendList: " + userFriendList.toString());
 		ArrayList<User> resultList = new ArrayList<>();
 		for (int i = 0; i < interestUserList.size(); i++) {
 			if (!userFriendList.contains(interestUserList.get(i)) && !Driver.currentUser.equals(interestUserList.get(i))) {

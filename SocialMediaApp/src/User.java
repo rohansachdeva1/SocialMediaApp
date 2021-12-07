@@ -147,7 +147,7 @@ public class User implements Comparable<User>{
 	 * Need to print friends and interests
 	 */
 	public void displayUserProfile() {
-		System.out.println("Name: " + firstName + " " + lastName);
+		System.out.println("\nName: " + firstName + " " + lastName);
 		System.out.println("City: " + city);
 		System.out.println("Friends: " + friends.inOrderData());
 		System.out.println("Interests: " + interests.toString());
